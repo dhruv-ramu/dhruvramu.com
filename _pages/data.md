@@ -1,4 +1,4 @@
----
+<!-- ---
 title: "Sanders Lab - Data"
 layout: textlay
 excerpt: "Sanders Lab -- Data."
@@ -83,7 +83,7 @@ permalink: /data/
 ### E15.5 Atlas
 
 <!-- start later since the body is cropped in the refined atlas -->
-<div class="youtube">
+<!-- <div class="youtube">
 <iframe width="450" height="657" src="https://player.vimeo.com/video/402063028?autoplay=1&muted=1&#t=68s" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 </div>
 
@@ -115,4 +115,4 @@ permalink: /data/
 <iframe width="404" height="790" src="https://player.vimeo.com/video/402060979?autoplay=1&muted=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 </div>
 
-<div class="clear"></div>
+<div class="clear"></div> -->

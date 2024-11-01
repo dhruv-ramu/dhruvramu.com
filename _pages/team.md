@@ -1,4 +1,4 @@
----
+<!-- ---
 title: "Sanders Lab - Team"
 layout: gridlay
 excerpt: "Sanders Lab: Team members"
@@ -203,4 +203,4 @@ Please contact our lab manager, <a href="mailto:Clif.Duhn@ucsf.edu">Clif Duhn</a
 
 
 
-
+ -->

@@ -1,9 +1,9 @@
 ---
-title: "Allan Lab - About"
+title: "    "
 layout: textlay
-excerpt: "Allan Lab -- About"
+excerpt: "Dhruv Ramu - Plant Pathology Project"
 sitemap: false
-permalink: /about/
+permalink: /plantpathology/
 ---
 
 # About this website
