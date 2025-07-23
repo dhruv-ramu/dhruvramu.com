@@ -15,7 +15,7 @@ export default function Home() {
               transition={{ duration: 0.7, ease: "easeOut" }}
               style={{ width: "100%" }}
             >
-              <Text as="h1" size="8" weight="bold" align="center" style={{ fontFamily: 'serif', letterSpacing: -1 }}>
+              <Text as="div" size="8" weight="bold" align="center" style={{ fontFamily: 'var(--font-ibm-plex-serif)', letterSpacing: -1 }} className="text-5xl sm:text-6xl">
                 Hello, I’m Dhruv Ramu
               </Text>
               <Text as="p" size="4" align="center" style={{ color: '#666', marginTop: 12, maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>
@@ -46,7 +46,7 @@ export default function Home() {
                   {/* Replace with actual portrait */}
                   <img src="/portrait-placeholder.png" alt="Dhruv Ramu portrait" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </Box>
-                <Text as="h2" size="6" weight="bold" align="center" style={{ fontFamily: 'serif', marginTop: 8 }}>
+                <Text as="div" size="6" weight="bold" align="center" style={{ fontFamily: 'var(--font-ibm-plex-serif)', marginTop: 8 }} className="text-3xl">
                   About Me
                 </Text>
                 <Text as="p" size="4" align="center" style={{ color: '#444', maxWidth: 480 }}>
@@ -79,7 +79,7 @@ export default function Home() {
           <Flex direction="column" align="center" gap="6">
             <Card size="3" style={{ maxWidth: 400, width: "100%", background: "#fff" }}>
               <Flex direction="column" align="center" gap="4">
-                <Text as="h2" size="5" weight="bold" align="center" style={{ fontFamily: 'serif' }}>
+                <Text as="div" size="5" weight="bold" align="center" style={{ fontFamily: 'var(--font-ibm-plex-serif)' }} className="text-2xl">
                   Contact
                 </Text>
                 <Text as="p" size="3" align="center" style={{ color: '#444', maxWidth: 320 }}>

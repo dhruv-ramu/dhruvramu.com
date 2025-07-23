@@ -5,6 +5,7 @@ import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { IBM_Plex_Serif } from "next/font/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,6 +15,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const ibmPlexSerif = IBM_Plex_Serif({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-ibm-plex-serif",
 });
 
 export const metadata: Metadata = {
@@ -28,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${ibmPlexSerif.variable} antialiased bg-white text-gray-900`}>
         <Theme appearance="light" accentColor="blue" radius="large">
           <Header />
           <main className="min-h-[80vh] flex flex-col">{children}</main>

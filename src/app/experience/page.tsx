@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { Card, Flex, Text, Box } from "@radix-ui/themes";
+import { motion } from "framer-motion";
 
 const EXPERIENCE_DIR = path.join(process.cwd(), "content/experience");
 
@@ -17,33 +19,53 @@ function getAllExperience() {
 export default function ExperiencePage() {
   const experience = getAllExperience().sort((a, b) => (b.start > a.start ? 1 : -1));
   return (
-    <main className="max-w-3xl mx-auto py-16 px-4">
-      <h1 className="text-3xl font-bold mb-8">Professional Experience</h1>
-      <ol className="relative border-l border-blue-200">
-        {experience.map((exp, idx) => (
-          <li key={idx} className="mb-12 ml-6">
-            <span className="absolute -left-3 flex items-center justify-center w-6 h-6 bg-blue-600 rounded-full ring-8 ring-white text-white font-bold">
-              {experience.length - idx}
-            </span>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h2 className="text-xl font-semibold">{exp.role}</h2>
-                <a href="#" className="text-blue-700 font-medium hover:underline">{exp.company}</a>
-                <span className="ml-2 text-gray-500 text-sm">• {exp.location}</span>
-              </div>
-              <div className="text-gray-500 text-sm mt-2 sm:mt-0">
-                {exp.start} – {exp.end}
-              </div>
-            </div>
-            <p className="mt-2 text-gray-700">{exp.summary}</p>
-            <ul className="list-disc list-inside mt-2 text-gray-600">
-              {exp.achievements && (exp.achievements as string[]).map((ach: string, i: number) => (
-                <li key={i}>{ach}</li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ol>
-    </main>
+    <Box asChild style={{ padding: "4rem 0" }}>
+      <main className="max-w-3xl mx-auto">
+        <Text as="div" size="7" weight="bold" align="center" style={{ fontFamily: 'var(--font-ibm-plex-serif)', marginBottom: 40 }} className="text-4xl">Professional Experience</Text>
+        <Flex direction="column" gap="6">
+          {experience.map((exp, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.6, delay: idx * 0.1, ease: "easeOut" }}
+              style={{ width: "100%" }}
+            >
+              <Flex align="start" gap="4" style={{ position: "relative" }}>
+                <Box style={{ width: 24, minWidth: 24, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <Box style={{ width: 12, height: 12, borderRadius: 999, background: '#2563eb', marginTop: 8, marginBottom: 8, border: '2px solid #fff', boxShadow: '0 0 0 2px #2563eb' }} />
+                  {idx < experience.length - 1 && (
+                    <Box style={{ width: 2, flex: 1, background: '#e0e7ff', marginTop: 0 }} />
+                  )}
+                </Box>
+                <Card size="3" style={{ flex: 1, background: '#fff' }}>
+                  <Flex direction="column" gap="2">
+                    <Text as="div" size="5" weight="bold" style={{ fontFamily: 'var(--font-ibm-plex-serif)' }} className="text-2xl">
+                      {exp.role}
+                    </Text>
+                    <Flex gap="2" align="center" wrap="wrap">
+                      <Text as="span" size="4" color="blue" weight="medium">{exp.company}</Text>
+                      <Text as="span" size="2" color="gray">• {exp.location}</Text>
+                      <Text as="span" size="2" color="gray">{exp.start} – {exp.end}</Text>
+                    </Flex>
+                    <Text as="p" size="3" style={{ color: '#444', marginTop: 8 }}>{exp.summary}</Text>
+                    {exp.achievements && (
+                      <Box asChild mt="2">
+                        <ul style={{ paddingLeft: 20, margin: 0 }}>
+                          {(exp.achievements as string[]).map((ach: string, i: number) => (
+                            <li key={i} style={{ color: '#2563eb', fontWeight: 500, marginBottom: 4 }}>{ach}</li>
+                          ))}
+                        </ul>
+                      </Box>
+                    )}
+                  </Flex>
+                </Card>
+              </Flex>
+            </motion.div>
+          ))}
+        </Flex>
+      </main>
+    </Box>
   );
 } 

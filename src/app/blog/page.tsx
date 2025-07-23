@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { Card, Flex, Text, Box, Button } from "@radix-ui/themes";
 
 const POSTS_DIR = path.join(process.cwd(), "posts");
 
@@ -17,23 +18,49 @@ function getAllPosts() {
 export default function BlogPage() {
   const posts = getAllPosts().sort((a, b) => (b.date > a.date ? 1 : -1));
   return (
-    <main className="max-w-3xl mx-auto py-16 px-4">
-      <h1 className="text-3xl font-bold mb-8">Blog</h1>
-      <div className="grid gap-8">
-        {posts.map((post, idx) => (
-          <article key={idx} className="bg-white/80 rounded-xl shadow p-6 flex flex-col gap-2">
-            <h2 className="text-xl font-semibold mb-1">{post.title}</h2>
-            <div className="text-sm text-gray-500 mb-2">{post.date}</div>
-            <p className="text-gray-700 mb-2">{post.excerpt}</p>
-            <div className="flex gap-2 flex-wrap mb-2">
-              {post.tags && (post.tags as string[]).map((tag: string, i: number) => (
-                <span key={i} className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full text-xs font-medium shadow-sm">{tag}</span>
+    <Box asChild style={{ padding: "4rem 0" }}>
+      <main className="max-w-5xl mx-auto">
+        <Flex gap="8" align="start">
+          <Box style={{ flex: 3 }}>
+            <Text as="div" size="7" weight="bold" align="center" style={{ fontFamily: 'serif', marginBottom: 40 }} className="text-4xl">Blog</Text>
+            <Flex direction="column" gap="6">
+              {posts.map((post, idx) => (
+                <Card key={idx} size="3" style={{ background: '#fff' }}>
+                  <Flex direction="column" gap="2">
+                    <Text as="div" size="5" weight="bold" style={{ fontFamily: 'serif' }} className="text-2xl">{post.title}</Text>
+                    <Text as="span" size="3" color="gray">{post.date}</Text>
+                    <Text as="p" size="3" style={{ color: '#444' }}>{post.excerpt}</Text>
+                    <Flex gap="2" wrap="wrap" mt="1">
+                      {post.tags && (post.tags as string[]).map((tag: string, i: number) => (
+                        <Box key={i} px="3" py="1" style={{ background: '#e0e7ff', color: '#2563eb', borderRadius: 999, fontSize: 13, fontWeight: 500, margin: 2, boxShadow: '0 1px 2px 0 rgba(0,0,0,0.03)' }}>
+                          {tag}
+                        </Box>
+                      ))}
+                    </Flex>
+                    <Button asChild size="2" radius="full" color="blue" highContrast mt="2" style={{ alignSelf: 'flex-start' }}>
+                      <a href="#">Read More →</a>
+                    </Button>
+                  </Flex>
+                </Card>
               ))}
-            </div>
-            <a href="#" className="text-blue-600 hover:underline text-sm font-medium">Read More →</a>
-          </article>
-        ))}
-      </div>
-    </main>
+            </Flex>
+          </Box>
+          <Box style={{ flex: 1, minWidth: 240 }}>
+            <Card size="2" style={{ background: '#f9fafb', marginBottom: 24 }}>
+              <Text as="div" size="4" weight="bold" style={{ fontFamily: 'serif', marginBottom: 12 }}>Categories</Text>
+              <Text as="div" size="2" color="gray">(Coming soon)</Text>
+            </Card>
+            <Card size="2" style={{ background: '#f9fafb', marginBottom: 24 }}>
+              <Text as="div" size="4" weight="bold" style={{ fontFamily: 'serif', marginBottom: 12 }}>Recent Posts</Text>
+              <Text as="div" size="2" color="gray">(Coming soon)</Text>
+            </Card>
+            <Card size="2" style={{ background: '#f9fafb' }}>
+              <Text as="div" size="4" weight="bold" style={{ fontFamily: 'serif', marginBottom: 12 }}>Tag Cloud</Text>
+              <Text as="div" size="2" color="gray">(Coming soon)</Text>
+            </Card>
+          </Box>
+        </Flex>
+      </main>
+    </Box>
   );
 } 
