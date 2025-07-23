@@ -2,14 +2,12 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { notFound } from "next/navigation";
-import dynamic from "next/dynamic";
+import BlogPostClientWrapper from "./BlogPostClientWrapper";
 import { serialize } from "next-mdx-remote/serialize";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import remarkGfm from "remark-gfm";
-
-const BlogPostClient = dynamic(() => import("../BlogPostClient"), { ssr: false }) as any;
 
 const POSTS_DIR = path.join(process.cwd(), "posts");
 
@@ -40,12 +38,16 @@ function getPostBySlug(slug: string): Post | null {
   return { ...data, content, slug } as Post;
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  // Await params if needed for Next.js dynamic API
-  const { slug } = params;
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return notFound();
-  const allPosts = getAllPosts();
+  // Always coerce date to string
+  post.date = typeof post.date === 'string' ? post.date : String(post.date);
+  const allPosts = getAllPosts().map(p => ({
+    ...p,
+    date: typeof p.date === 'string' ? p.date : String(p.date),
+  }));
   const related = allPosts.filter(p => p.slug !== slug).slice(0, 3);
   const mdxSource = await serialize(post.content, {
     mdxOptions: {
@@ -55,6 +57,6 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   });
   const { content, ...meta } = post;
   return (
-    <BlogPostClient post={meta} mdxSource={mdxSource} related={related} />
+    <BlogPostClientWrapper post={meta} mdxSource={mdxSource} related={related} />
   );
 } 

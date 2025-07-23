@@ -1,7 +1,7 @@
 ---
 role: Research Intern
 company: Indian Institute of Science (IISc)
-company_logo: /logos/iisc.png
+company_logo: IISC Logo 2019.svg
 company_url: https://iisc.ac.in
 start: 2023-06
 end: Present

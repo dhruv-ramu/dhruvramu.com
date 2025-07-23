@@ -1,7 +1,7 @@
 ---
 role: Research Intern
 company: University of Agricultural Sciences, Bangalore
-company_logo: /logos/uasc.png
+company_logo: UASB Logo.png
 company_url: https://uasbangalore.edu.in
 start: 2024-03
 end: 2024-12

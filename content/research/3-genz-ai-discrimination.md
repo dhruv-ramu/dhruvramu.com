@@ -4,7 +4,7 @@ authors: Dhruv Ramu, et al.
 journal: arXiv
 year: 2024
 doi: 10.48550/arXiv.2401.04120
-pdf: https://doi.org/10.48550/arXiv.2401.04120
+pdf: Generation Z's Ability to Discriminate Between AI-generated and Human-Authored Text on Discord.pdf
 tags:
   - AI Literacy
   - Social Media

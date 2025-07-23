@@ -1,7 +1,7 @@
 ---
 role: Executive Lead and Co-Founder
 company: International Research Olympiad (IRO)
-company_logo: /logos/iro.png
+company_logo: IROLogo.webp
 company_url: https://internationalresearcholympiad.org
 start: 2023-12
 end: Present

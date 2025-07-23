@@ -11,6 +11,10 @@ interface PostMeta {
   tags?: string[];
   excerpt?: string;
   slug: string;
+  author?: string;
+  reading_time?: string;
+  pdf?: string;
+  logo?: string;
 }
 
 interface Props {
@@ -19,11 +23,41 @@ interface Props {
   related: PostMeta[];
 }
 
+// PDF embed component
+function Pdf({ src, title }: { src: string; title?: string }) {
+  // Only allow embedding from /pdf/
+  if (!src.startsWith('/pdf/')) return null;
+  return (
+    <Box my="4">
+      <iframe
+        src={src}
+        title={title || 'PDF'}
+        width="100%"
+        height="600px"
+        style={{ border: '1px solid #e5e7eb', borderRadius: 8 }}
+        allowFullScreen
+      />
+      <Text as="div" size="2" color="gray" align="center" mt="2">
+        <a href={src} target="_blank" rel="noopener noreferrer">Open PDF in new tab</a>
+      </Text>
+    </Box>
+  );
+}
+
 export default function BlogPostClient({ post, mdxSource, related }: Props) {
   const { slug } = post;
+  // Format date for display
+  function formatDate(date: string) {
+    if (!date) return "";
+    const d = new Date(date);
+    if (!isNaN(d.getTime())) {
+      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+    return date;
+  }
   return (
     <Box asChild style={{ padding: "0 0 6rem 0" }}>
-      <main className="max-w-3xl mx-auto">
+      <main className="max-w-3xl mx-auto px-4 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: -32 }}
           animate={{ opacity: 1, y: 0 }}
@@ -42,6 +76,9 @@ export default function BlogPostClient({ post, mdxSource, related }: Props) {
             <Button asChild size="2" color="blue" variant="soft" style={{ marginBottom: 24 }}>
               <Link href="/blog">← Back to Blog</Link>
             </Button>
+            {post.logo && (
+              <img src={post.logo} alt="Post logo" style={{ maxWidth: 80, borderRadius: 12, marginBottom: 16 }} />
+            )}
             <Text
               as="div"
               size="8"
@@ -53,8 +90,14 @@ export default function BlogPostClient({ post, mdxSource, related }: Props) {
             </Text>
             <Flex gap="2" align="center" wrap="wrap" mt="2">
               <Text as="span" size="3" color="gray">
-                {post.date}
+                {formatDate(post.date)}
               </Text>
+              {post.author && (
+                <Text as="span" size="3" color="gray">• {post.author}</Text>
+              )}
+              {post.reading_time && (
+                <Text as="span" size="3" color="gray">• {post.reading_time} read</Text>
+              )}
               {post.tags &&
                 post.tags.map((tag, i) => (
                   <Box
@@ -75,6 +118,11 @@ export default function BlogPostClient({ post, mdxSource, related }: Props) {
                   </Box>
                 ))}
             </Flex>
+            {post.pdf && (
+              <Button asChild size="2" color="blue" variant="solid" style={{ marginTop: 18, marginBottom: 0 }}>
+                <a href={post.pdf} target="_blank" rel="noopener noreferrer">Download PDF</a>
+              </Button>
+            )}
             <Flex gap="2" mt="2">
               <Button asChild size="2" color="blue" variant="soft">
                 <a
@@ -188,6 +236,7 @@ export default function BlogPostClient({ post, mdxSource, related }: Props) {
                 img: (props: any) => (
                   <img
                     {...props}
+                    src={props.src?.startsWith('/logos/') || props.src?.startsWith('/pdf/') || props.src?.startsWith('/public/') ? props.src : `/public/${props.src}`}
                     style={{
                       maxWidth: "100%",
                       borderRadius: 8,
@@ -195,6 +244,7 @@ export default function BlogPostClient({ post, mdxSource, related }: Props) {
                     }}
                   />
                 ),
+                Pdf,
               }}
             />
           </Card>

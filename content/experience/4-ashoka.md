@@ -1,7 +1,7 @@
 ---
 role: Student Researcher
 company: Ashoka University
-company_logo: /logos/ashoka.png
+company_logo: ashokalogo.png
 company_url: https://ashoka.edu.in
 start: 2023-01
 end: 2025-01

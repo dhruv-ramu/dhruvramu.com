@@ -26,7 +26,7 @@ function getAllPosts(): BlogPost[] {
 export default function BlogPage() {
   const allPosts = getAllPosts().sort((a, b) => (b.date > a.date ? 1 : -1));
   return (
-    <div style={{ padding: '4rem 0 8rem 0' }}>
+    <div style={{ padding: '4rem 1.5rem 8rem 1.5rem', maxWidth: '900px', margin: '0 auto' }}>
       <BlogClient allPosts={allPosts} />
     </div>
   );

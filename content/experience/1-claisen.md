@@ -1,7 +1,7 @@
 ---
 role: Chief Research Officer
 company: Claisen
-company_logo: /logos/claisen.png
+company_logo: Claisen_GreenLogo.png
 company_url: https://claisen.com
 start: 2025-05
 end: Present

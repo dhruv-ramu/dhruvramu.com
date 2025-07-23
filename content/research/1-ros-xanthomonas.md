@@ -4,7 +4,7 @@ authors: Dhruv Ramu, et al.
 journal: bioRxiv
 year: 2024
 doi: 10.1101/2024.10.30.621045
-pdf: https://doi.org/10.1101/2024.10.30.621045
+pdf: Crosstalk Between Drought-Induced ROS Regulation and Resistance to Xanthomonas oryzae Infection in Rice Plants.pdf
 tags:
   - Plant Biology
   - Stress Response

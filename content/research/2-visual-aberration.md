@@ -4,7 +4,7 @@ authors: Dhruv Ramu, Akhilesh Balaji, Pratha Pratim Das, et al.
 journal: arXiv
 year: 2025
 doi: 10.48550/arXiv.2501.01450
-pdf: https://doi.org/10.48550/arXiv.2501.01450
+pdf: Live_Vision_Correcting_Display_for_Refractive_Visual_Aberrations.pdf
 tags:
   - Computational Imaging
   - Accessibility

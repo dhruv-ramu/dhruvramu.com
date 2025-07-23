@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import { Box, Flex, Text, Button, Card } from "@radix-ui/themes";
 import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
+import { useEffect } from "react";
 
 export default function Home() {
   // Hamburger menu state
@@ -12,57 +14,73 @@ export default function Home() {
     <>
       <main>
         {/* HERO SECTION */}
-        <section id="hero" className="w-full min-h-[60vh] flex flex-col items-center justify-center text-center px-4 py-20 bg-gradient-to-br from-[#e0e7ff] via-[#f5faff] to-[#f7f0ff] relative overflow-hidden">
-          <Text as="div" size="9" weight="bold" align="center" style={{ fontFamily: 'var(--font-ibm-plex-serif)' }} className="mb-4 text-5xl sm:text-6xl">Hello, I’m Dhruv Ramu</Text>
-          <Text as="div" size="5" className="mb-8 text-gray-700">Molecular Biologist & Research Scientist</Text>
-          <Flex gap="4" justify="center">
-            <Button asChild size="4" radius="full" color="blue" highContrast>
-              <a href="#about">Learn More →</a>
-            </Button>
-            <Link href="/blog" className="text-blue-700 underline underline-offset-4 font-medium text-lg hover:opacity-80 transition">Read My Blog</Link>
-          </Flex>
-          {/* Easter egg: animated molecule SVG */}
-          <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="absolute left-8 top-8 opacity-20 animate-spin-slow">
-            <circle cx="60" cy="60" r="50" stroke="#a5b4fc" strokeWidth="6" />
-            <circle cx="60" cy="60" r="30" stroke="#38bdf8" strokeWidth="4" />
-            <circle cx="60" cy="60" r="10" fill="#6366f1" />
+        <section id="hero" className="w-full min-h-[60vh] flex flex-col items-center justify-center text-center px-4 py-24 bg-gradient-to-br from-[#e0e7ff] via-[#f5faff] to-[#f7f0ff] relative overflow-hidden">
+          {/* Animated SVG background */}
+          <svg className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none animate-pulse-slow" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" style={{zIndex:0}}>
+            <path fill="#a5b4fc" fillOpacity="0.3" d="M0,160L60,170.7C120,181,240,203,360,197.3C480,192,600,160,720,133.3C840,107,960,85,1080,101.3C1200,117,1320,171,1380,197.3L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z" />
           </svg>
+          <div className="relative z-10 flex flex-col items-center">
+            <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-blue-300 shadow-xl bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center mb-6 animate-fade-in">
+              <img src="/images/PassportPhoto Background Removed.png" alt="Dhruv Ramu portrait" className="object-cover w-full h-full" />
+            </div>
+            <AnimatedPeriodHero />
+            <Text as="div" size="5" className="mb-6 text-gray-700 animate-fade-in delay-100">Researching Computational and Molecular Biology</Text>
+            <Flex gap="4" justify="center" className="animate-fade-in delay-200 mt-2">
+              <Button asChild size="4" radius="full" color="blue" highContrast className="transition-transform hover:scale-105">
+                <a href="#about">Learn More →</a>
+              </Button>
+              <Button asChild size="4" radius="full" color="blue" variant="soft" className="transition-transform hover:scale-105">
+                <a href="#contact">Contact</a>
+              </Button>
+              <Button asChild size="4" radius="full" color="blue" variant="outline" className="transition-transform hover:scale-105">
+                <a href="/blog">Read My Blog</a>
+              </Button>
+            </Flex>
+          </div>
         </section>
 
         {/* ABOUT SECTION */}
-        <section id="about" className="max-w-5xl mx-auto px-4 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="flex justify-center md:justify-end">
-            <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-blue-200 shadow-lg bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center">
-              {/* Replace with actual headshot */}
-              <img src="/portrait-placeholder.png" alt="Dhruv Ramu portrait" className="object-cover w-full h-full" />
+        <section id="about" className="max-w-5xl mx-auto px-4 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="flex justify-center md:justify-end items-center animate-fade-in">
+            <div className="relative flex items-center justify-center group about-image-spacer" style={{ minHeight: '400px', marginRight: '2.5rem' }}>
+              {/* Gradient ring */}
+              <div className="absolute w-80 h-80 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-blue-200 via-blue-400 to-blue-100 opacity-50 blur-2xl animate-pulse-slow z-0" />
+              {/* Glassy overlay */}
+              <div className="absolute w-72 h-72 md:w-80 md:h-80 rounded-full bg-white/20 backdrop-blur-md z-10 pointer-events-none" style={{ boxShadow: '0 12px 48px 0 rgba(80,120,200,0.18)' }} />
+              {/* Main image with drop shadow and hover effect */}
+              <div className="w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-8 border-blue-300 shadow-2xl bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center z-20 transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_24px_80px_0_rgba(80,120,200,0.25)] animate-float">
+                <img src="/images/Dhruv_Background.png" alt="Dhruv Ramu background" className="object-cover w-full h-full" />
+              </div>
             </div>
           </div>
-          <div className="flex flex-col gap-6">
-            <Text as="div" size="6" weight="bold" style={{ fontFamily: 'var(--font-ibm-plex-serif)' }} className="text-3xl">About Me</Text>
-            <Text as="p" size="4" className="text-gray-700">
-              I’m an undergraduate student at UC San Diego passionate about molecular biology, computational research, and building digital tools for science and health. I thrive at the intersection of data, biology, and technology, and love collaborating on impactful projects.
-            </Text>
-            <ul className="list-disc list-inside text-gray-700 text-lg">
-              <li>Chief Research Officer at Claisen, building personalized GI health solutions</li>
-              <li>15+ publications, including in bioRxiv and arXiv</li>
-              <li>Co-founder, International Research Olympiad (IRO), 6000+ sign-ups worldwide</li>
-            </ul>
+          <div className="flex flex-col gap-6 animate-fade-in delay-100">
+            <div className="backdrop-blur-md bg-white/70 rounded-2xl shadow-lg p-8">
+              <Text as="div" size="6" weight="bold" style={{ fontFamily: 'var(--font-ibm-plex-serif)' }} className="text-3xl mb-2">About Me</Text>
+              <Text as="p" size="4" className="text-gray-700 mb-4">
+                I’m an undergraduate student at UC San Diego passionate about molecular biology, computational research, and building digital tools for science and health. I thrive at the intersection of data, biology, and technology, and love collaborating on impactful projects.
+              </Text>
+              <ul className="list-disc list-inside text-gray-700 text-lg mb-2">
+                <li><span className="inline-block mr-2">🏥</span> Chief Research Officer at Claisen, building personalized GI health solutions</li>
+                <li><span className="inline-block mr-2">📄</span> Various publications in computational biology and computer science</li>
+                <li><span className="inline-block mr-2">🌍</span> Co-founder, International Research Olympiad (IRO), 6000+ sign-ups worldwide</li>
+              </ul>
+            </div>
           </div>
         </section>
 
         {/* FEATURED HIGHLIGHTS SECTION */}
-        <section id="highlights" className="max-w-6xl mx-auto px-4 py-20 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <section id="highlights" className="max-w-6xl mx-auto px-4 py-24 grid grid-cols-1 md:grid-cols-3 gap-10 animate-fade-in delay-200">
           <HighlightCard
             icon={<span role="img" aria-label="Experience">💼</span>}
             title="Experience"
-            summary="Chief Research Officer, 4+ years in research & leadership"
+            summary="Chief Research Officer, experience in research, strategy & leadership"
             linkHref="/experience"
             linkText="View Experience →"
           />
           <HighlightCard
             icon={<span role="img" aria-label="Research">🧪</span>}
             title="Research"
-            summary="15+ publications in top journals"
+            summary="Multiple publications"
             linkHref="/research"
             linkText="View Research →"
           />
@@ -78,12 +96,14 @@ export default function Home() {
         </section>
 
         {/* CONTACT PREVIEW SECTION */}
-        <section id="contact" className="max-w-2xl mx-auto px-4 py-20">
-          <Text as="div" size="6" weight="bold" style={{ fontFamily: 'var(--font-ibm-plex-serif)' }} className="mb-4">Let’s connect—drop me a line below.</Text>
-          <ContactForm />
-          <Text as="p" size="3" className="mt-6 text-center text-gray-700">
-            Or email me at: <a href="mailto:dhruv@dhruvramu.com" className="text-blue-700 underline">dhruv@dhruvramu.com</a>
-          </Text>
+        <section id="contact" className="max-w-2xl mx-auto px-4 py-24 animate-fade-in delay-300">
+          <div className="backdrop-blur-md bg-white/80 rounded-2xl shadow-xl p-10">
+            <Text as="div" size="6" weight="bold" style={{ fontFamily: 'var(--font-ibm-plex-serif)' }} className="mb-4">Let’s connect—drop me a line below.</Text>
+            <ContactForm />
+            <Text as="p" size="3" className="mt-6 text-center text-gray-700">
+              Or email me at: <a href="mailto:contact@dhruvramu.com" className="text-blue-700 underline">contact@dhruvramu.com</a>
+            </Text>
+          </div>
         </section>
       </main>
     </>
@@ -220,3 +240,81 @@ function ContactForm() {
     </form>
   );
 }
+
+// --- HERO HEADING WITH ANIMATED PERIOD ---
+function AnimatedPeriodHero() {
+  const [bouncing, setBouncing] = useState(false);
+  const periodRef = useRef<HTMLSpanElement>(null);
+
+  function handleClick() {
+    setBouncing(true);
+    setTimeout(() => setBouncing(false), 700);
+  }
+
+  return (
+    <Text as="div" size="9" weight="bold" align="center" style={{ fontFamily: 'var(--font-ibm-plex-serif)', whiteSpace: 'nowrap' }} className="mb-4 text-5xl sm:text-6xl tracking-tight animate-fade-in hero-heading-nowrap">
+      Hello, I’m{' '}
+      <span className="hero-dhruv-underline-group" style={{ display: 'inline-block', position: 'relative', verticalAlign: 'baseline' }}>
+        <span style={{ display: 'inline', position: 'relative', zIndex: 1 }}>Dhruv</span>
+        <span className="hero-dhruv-underline-svg" style={{ position: 'absolute', left: 0, right: 0, bottom: '-6px', width: '100%', height: '18px', opacity: 0, pointerEvents: 'none', transition: 'opacity 0.25s' }}>
+          <svg viewBox="0 0 100 18" width="100" height="18" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
+            <path d="M5 15 Q 30 5, 55 15 Q 80 25, 95 10" stroke="#2563eb" strokeWidth="4" fill="none" strokeLinecap="round"/>
+          </svg>
+        </span>
+      </span>
+      <span style={{ marginLeft: '0.2em' }}>Ramu</span>
+      <span
+        ref={periodRef}
+        onClick={handleClick}
+        className={`inline-block cursor-pointer ml-1 align-baseline hero-period-bounceable${bouncing ? ' hero-period-bounce' : ''}`}
+        style={{ color: '#2563eb', fontWeight: 900 }}
+        title="Click me!"
+      >
+        .
+      </span>
+    </Text>
+  );
+}
+
+/* Add to your global CSS or <style jsx global>:
+.hero-period-bounceable {
+  transition: transform 0.2s;
+}
+.hero-period-bounce {
+  animation: heroBounce 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes heroBounce {
+  0% { transform: translateY(0); }
+  20% { transform: translateY(-32px) scale(1.2); }
+  40% { transform: translateY(0) scale(1); }
+  60% { transform: translateY(-16px) scale(1.1); }
+  80% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(0); }
+}
+.hero-dhruv-underline-group {
+  display: inline-block;
+  position: relative;
+}
+.hero-dhruv-underline-svg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 18px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+.hero-dhruv-underline-group:hover .hero-dhruv-underline-svg {
+  opacity: 1 !important;
+}
+.hero-heading-nowrap {
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .hero-heading-nowrap {
+    white-space: normal;
+  }
+}
+*/

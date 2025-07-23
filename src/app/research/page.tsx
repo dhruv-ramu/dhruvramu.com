@@ -59,7 +59,7 @@ export default function ResearchPage() {
     <Box asChild style={{ padding: "4rem 0" }}>
       <main className="max-w-4xl mx-auto">
         <Text as="div" size="7" weight="bold" align="center" style={{ fontFamily: 'var(--font-ibm-plex-serif)', marginBottom: 40 }} className="text-4xl">Research & Publications</Text>
-        <ResearchPageClient projects={projects} publications={publications} talks={talks} />
+        <ResearchPageClient publications={publications} projects={projects} talks={talks} />
       </main>
     </Box>
   );
