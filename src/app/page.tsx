@@ -1,103 +1,98 @@
-import Image from "next/image";
+"use client";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { Box, Flex, Text, Button, Card } from "@radix-ui/themes";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    <>
+      <Box asChild style={{ minHeight: "70vh", padding: "4rem 0 0 0" }}>
+        <section>
+          <Flex direction="column" align="center" gap="6">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              style={{ width: "100%" }}
+            >
+              <Text as="h1" size="8" weight="bold" align="center" style={{ fontFamily: 'serif', letterSpacing: -1 }}>
+                Hello, I’m Dhruv Ramu
+              </Text>
+              <Text as="p" size="4" align="center" style={{ color: '#666', marginTop: 12, maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>
+                Researcher, Front-End Engineer, and lifelong learner passionate about building impactful digital experiences.
+              </Text>
+              <Flex gap="4" justify="center" mt="5">
+                <motion.div whileHover={{ scale: 1.03, boxShadow: "0 2px 8px rgba(0,0,0,0.10)" }}>
+                  <Button asChild size="3" radius="full" color="blue" highContrast>
+                    <Link href="#experience">View Experience</Link>
+                  </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.03, boxShadow: "0 2px 8px rgba(0,0,0,0.10)" }}>
+                  <Button asChild size="3" radius="full" color="gray">
+                    <Link href="/blog">Read Blog</Link>
+                  </Button>
+                </motion.div>
+              </Flex>
+            </motion.div>
+          </Flex>
+        </section>
+      </Box>
+      <Box asChild style={{ padding: "4rem 0" }}>
+        <section id="about">
+          <Flex direction="column" align="center" gap="6">
+            <Card size="3" style={{ maxWidth: 600, width: "100%", background: "#fff" }}>
+              <Flex direction="column" align="center" gap="4">
+                <Box style={{ width: 112, height: 112, borderRadius: "50%", overflow: "hidden", border: "4px solid #e0e7ff", boxShadow: "0 2px 8px 0 rgba(0,0,0,0.04)" }}>
+                  {/* Replace with actual portrait */}
+                  <img src="/portrait-placeholder.png" alt="Dhruv Ramu portrait" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                </Box>
+                <Text as="h2" size="6" weight="bold" align="center" style={{ fontFamily: 'serif', marginTop: 8 }}>
+                  About Me
+                </Text>
+                <Text as="p" size="4" align="center" style={{ color: '#444', maxWidth: 480 }}>
+                  I’m a researcher and front-end engineer with a passion for mathematical modeling, data analysis, and building robust digital tools. My work bridges computational and wet lab research, and I thrive on collaborating with interdisciplinary teams. Currently, I focus on leveraging modern web technologies to communicate science and research impactfully.
+                </Text>
+                <Flex gap="8" justify="center" mt="4">
+                  <Flex direction="column" align="center">
+                    <Text as="span" size="6" weight="bold" color="blue">12</Text>
+                    <Text as="span" size="2" color="gray">Publications</Text>
+                  </Flex>
+                  <Flex direction="column" align="center">
+                    <Text as="span" size="6" weight="bold" color="blue">8</Text>
+                    <Text as="span" size="2" color="gray">Projects</Text>
+                  </Flex>
+                </Flex>
+                <Flex gap="2" wrap="wrap" justify="center" mt="4">
+                  {['Mathematical Modelling', 'Data Analysis (Python/R)', 'LaTeX', 'Wet Lab', 'React', 'TypeScript'].map(skill => (
+                    <Box key={skill} px="3" py="1" style={{ background: '#e0e7ff', color: '#2563eb', borderRadius: 999, fontSize: 13, fontWeight: 500, margin: 2, boxShadow: '0 1px 2px 0 rgba(0,0,0,0.03)' }}>
+                      {skill}
+                    </Box>
+                  ))}
+                </Flex>
+              </Flex>
+            </Card>
+          </Flex>
+        </section>
+      </Box>
+      <Box asChild style={{ padding: "4rem 0" }}>
+        <section id="contact">
+          <Flex direction="column" align="center" gap="6">
+            <Card size="3" style={{ maxWidth: 400, width: "100%", background: "#fff" }}>
+              <Flex direction="column" align="center" gap="4">
+                <Text as="h2" size="5" weight="bold" align="center" style={{ fontFamily: 'serif' }}>
+                  Contact
+                </Text>
+                <Text as="p" size="3" align="center" style={{ color: '#444', maxWidth: 320 }}>
+                  Interested in collaborating, hiring, or just want to say hello? Reach out and I’ll get back to you soon.
+                </Text>
+                <Button asChild size="3" radius="full" color="blue" highContrast mt="4">
+                  <a href="mailto:dhruvramu@gmail.com">Email Me</a>
+                </Button>
+              </Flex>
+            </Card>
+          </Flex>
+        </section>
+      </Box>
+    </>
   );
 }
