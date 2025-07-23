@@ -1,8 +1,9 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { Card, Flex, Text, Box } from "@radix-ui/themes";
-import { motion } from "framer-motion";
+import { Box, Text } from "@radix-ui/themes";
+// Only import the client wrapper, do NOT use dynamic(..., { ssr: false }) in this file!
+import ExperienceTimelineClientWrapper from "./ExperienceTimelineClient";
 
 const EXPERIENCE_DIR = path.join(process.cwd(), "content/experience");
 
@@ -16,55 +17,29 @@ function getAllExperience() {
   });
 }
 
+function sortExperience(a: any, b: any) {
+  const isOngoingA = a.end === 'Present';
+  const isOngoingB = b.end === 'Present';
+  if (isOngoingA && !isOngoingB) return -1;
+  if (!isOngoingA && isOngoingB) return 1;
+  if (isOngoingA && isOngoingB) {
+    // Both ongoing: later start date first
+    return new Date(b.start).getTime() - new Date(a.start).getTime();
+  }
+  // Both completed: most recent end date first
+  return new Date(b.end).getTime() - new Date(a.end).getTime();
+}
+
 export default function ExperiencePage() {
-  const experience = getAllExperience().sort((a, b) => (b.start > a.start ? 1 : -1));
+  const experience = getAllExperience().map(exp => ({
+    ...exp,
+    company_logo: exp.company_logo ? `/logos/${exp.company_logo}` : undefined,
+  })).sort(sortExperience);
   return (
     <Box asChild style={{ padding: "4rem 0" }}>
       <main className="max-w-3xl mx-auto">
         <Text as="div" size="7" weight="bold" align="center" style={{ fontFamily: 'var(--font-ibm-plex-serif)', marginBottom: 40 }} className="text-4xl">Professional Experience</Text>
-        <Flex direction="column" gap="6">
-          {experience.map((exp, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.6, delay: idx * 0.1, ease: "easeOut" }}
-              style={{ width: "100%" }}
-            >
-              <Flex align="start" gap="4" style={{ position: "relative" }}>
-                <Box style={{ width: 24, minWidth: 24, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <Box style={{ width: 12, height: 12, borderRadius: 999, background: '#2563eb', marginTop: 8, marginBottom: 8, border: '2px solid #fff', boxShadow: '0 0 0 2px #2563eb' }} />
-                  {idx < experience.length - 1 && (
-                    <Box style={{ width: 2, flex: 1, background: '#e0e7ff', marginTop: 0 }} />
-                  )}
-                </Box>
-                <Card size="3" style={{ flex: 1, background: '#fff' }}>
-                  <Flex direction="column" gap="2">
-                    <Text as="div" size="5" weight="bold" style={{ fontFamily: 'var(--font-ibm-plex-serif)' }} className="text-2xl">
-                      {exp.role}
-                    </Text>
-                    <Flex gap="2" align="center" wrap="wrap">
-                      <Text as="span" size="4" color="blue" weight="medium">{exp.company}</Text>
-                      <Text as="span" size="2" color="gray">• {exp.location}</Text>
-                      <Text as="span" size="2" color="gray">{exp.start} – {exp.end}</Text>
-                    </Flex>
-                    <Text as="p" size="3" style={{ color: '#444', marginTop: 8 }}>{exp.summary}</Text>
-                    {exp.achievements && (
-                      <Box asChild mt="2">
-                        <ul style={{ paddingLeft: 20, margin: 0 }}>
-                          {(exp.achievements as string[]).map((ach: string, i: number) => (
-                            <li key={i} style={{ color: '#2563eb', fontWeight: 500, marginBottom: 4 }}>{ach}</li>
-                          ))}
-                        </ul>
-                      </Box>
-                    )}
-                  </Flex>
-                </Card>
-              </Flex>
-            </motion.div>
-          ))}
-        </Flex>
+        <ExperienceTimelineClientWrapper experience={experience} />
       </main>
     </Box>
   );

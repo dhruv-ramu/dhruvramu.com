@@ -35,7 +35,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${ibmPlexSerif.variable} antialiased bg-white text-gray-900`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${ibmPlexSerif.variable} antialiased bg-white text-gray-900`}
+        style={{
+          minHeight: "100vh",
+          background: "linear-gradient(135deg, #f5faff 0%, #f7f0ff 100%)",
+          backgroundAttachment: "fixed",
+        }}
+      >
         <Theme appearance="light" accentColor="blue" radius="large">
           <Header />
           <main className="min-h-[80vh] flex flex-col">{children}</main>
