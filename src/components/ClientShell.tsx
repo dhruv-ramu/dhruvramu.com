@@ -3,7 +3,8 @@
 import { useSyncExternalStore } from "react";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CustomCursor } from "@/components/CustomCursor";
-import { SiteHeader } from "@/components/SiteHeader";
+import { Sidebar } from "@/components/Sidebar";
+import { MobileNav } from "@/components/MobileNav";
 import { Footer } from "@/components/Footer";
 
 function useIsClient() {
@@ -14,15 +15,28 @@ function useIsClient() {
   );
 }
 
+const mobileNavItems = [
+  { href: "/", label: "Home" },
+  { href: "/projects", label: "Projects" },
+  { href: "/writing", label: "Writing" },
+  { href: "/atlas", label: "Atlas" },
+  { href: "/library", label: "Library" },
+  { href: "/about", label: "About" },
+  { href: "/resume", label: "CV" },
+];
+
 export function ClientShell({ children }: { children: React.ReactNode }) {
   const isClient = useIsClient();
 
   return (
     <ThemeProvider>
       {isClient && <CustomCursor />}
-      <SiteHeader />
-      <main className="flex-1 pt-24 md:pt-28">{children}</main>
-      <Footer />
+      <Sidebar />
+      <MobileNav navItems={mobileNavItems} />
+      <div className="lg:ml-[220px] xl:ml-[240px] flex flex-col min-h-screen">
+        <main className="flex-1 pt-[4.5rem] lg:pt-0">{children}</main>
+        <Footer />
+      </div>
     </ThemeProvider>
   );
 }

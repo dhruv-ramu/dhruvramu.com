@@ -139,11 +139,59 @@ body {
 
 .hero-heading {
   font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(4.5rem, 10vw, 10rem);
-  line-height: 0.9;
+  font-size: clamp(5rem, 14vw, 12rem);
+  line-height: 0.88;
   font-weight: 500;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.05em;
 }
+
+/* Giant background index numbers */
+.giant-index {
+  position: absolute;
+  top: -0.15em;
+  right: -0.05em;
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(8rem, 22vw, 16rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  opacity: 0.04;
+  z-index: 0;
+}
+
+/* Full-bleed ink band */
+.ink-band {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Editorial rule with diamond */
+.rule-diamond {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rule-diamond::before,
+.rule-diamond::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line-dark);
+}
+
+.rule-diamond span {
+  font-family: var(--font-mono), "IBM Plex Mono", monospace;
+  font-size: 0.5rem;
+  color: var(--muted);
+}
+
+/* Stroked display text */
+.text-stroke {
+  -webkit-text-stroke: 1.5px var(--ink);
+  color: transparent;
+}
+
 
 .hero-subtitle {
   font-family: var(--font-body), Newsreader, Georgia, serif;
@@ -293,10 +341,15 @@ body {
   outline-offset: 3px;
 }
 
-/* Custom cursor (desktop only) */
-@media (hover: hover) and (pointer: fine) {
-  .custom-cursor-active a,
-  .custom-cursor-active button {
-    cursor: none;
-  }
+/* Crisp atlas text — avoid blur from subpixel transforms */
+.atlas-canvas {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
+
+.atlas-node {
+  transform: translate(-50%, -50%);
+  will-change: left, top, opacity;
+}
+

@@ -8,6 +8,7 @@ import { Container } from "@/components/Container";
 import { PageTransition } from "@/components/PageTransition";
 import { Tag } from "@/components/Tag";
 import { Button } from "@/components/Button";
+import { PhotoPlaceholder } from "@/components/PhotoPlaceholder";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -74,6 +75,13 @@ export default async function ProjectPage({ params }: Props) {
             </div>
           )}
         </header>
+
+        <PhotoPlaceholder
+          variant="hero"
+          label="Project figure"
+          caption={frontmatter.title}
+          className="mt-10"
+        />
 
         <article className="prose-article mt-12 md:mt-16">
           <MDXContent source={content} />

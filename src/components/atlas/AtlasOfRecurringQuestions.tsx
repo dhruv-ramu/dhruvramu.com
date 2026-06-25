@@ -45,6 +45,7 @@ function NodeButton({
   onLeave,
   compact,
   filter,
+  invert,
 }: {
   positioned: PositionedNode;
   onSelect: (id: string) => void;
@@ -52,8 +53,9 @@ function NodeButton({
   onLeave: () => void;
   compact?: boolean;
   filter: AtlasFilter;
+  invert?: boolean;
 }) {
-  const { node, x, y, opacity, scale, isFocus, isHighlighted } = positioned;
+  const { node, x, y, opacity, isFocus, isHighlighted } = positioned;
   const order = padOrder(node.id, node);
   const isDomain = node.type === "domain";
   const isUnresolved = node.type === "unresolved";
@@ -65,68 +67,86 @@ function NodeButton({
       : opacity;
 
   return (
-    <motion.button
-      type="button"
-      className={cn(
-        "absolute -translate-x-1/2 -translate-y-1/2 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-full",
-        isUnresolved && "border-dashed"
-      )}
+    <motion.div
+      className="atlas-node absolute"
       style={{
         left: `${x * 100}%`,
         top: `${y * 100}%`,
         zIndex: isFocus ? 30 : isDomain ? 20 : 10,
       }}
       initial={false}
-      animate={{ opacity: displayOpacity, scale }}
-      transition={{ duration: 0.55, ease }}
-      onClick={(e) => {
-        e.stopPropagation();
-        onSelect(node.id);
-      }}
-      onMouseEnter={() => onHover(node.id)}
-      onMouseLeave={onLeave}
-      onFocus={() => onHover(node.id)}
-      onBlur={onLeave}
-      aria-label={node.label}
+      animate={{ opacity: displayOpacity }}
+      transition={{ duration: 0.5, ease }}
     >
-      <span
+      <button
+        type="button"
         className={cn(
-          "block transition-colors duration-300",
-          isDomain
-            ? cn(
-                "font-display font-medium tracking-tight text-ink",
-                compact ? "text-xl md:text-2xl" : "text-2xl md:text-[2rem]",
-                "px-4 py-2 border border-line rounded-full bg-paper/90 backdrop-blur-sm",
-                "hover:border-line-dark hover:bg-paper-deep",
-                isFocus && "border-accent text-accent-ink bg-paper",
-                isHighlighted && "border-gold shadow-[0_0_0_1px_var(--gold)]"
-              )
-            : isSmall
-              ? cn(
-                  "font-body text-sm md:text-base",
-                  isUnresolved
-                    ? "italic text-accent-ink border border-dashed border-accent-soft px-3 py-1.5 rounded-full bg-paper/80"
-                    : "text-muted hover:text-ink px-2 py-1",
-                  isFocus && "text-ink font-medium",
-                  isHighlighted && "text-accent-ink"
-                )
-              : cn(
-                  "font-display text-lg md:text-xl font-medium text-ink-soft",
-                  "px-3 py-1.5 border border-line/70 rounded-full bg-paper/70",
-                  "hover:border-line-dark hover:text-ink",
-                  isFocus && "border-accent text-accent-ink",
-                  isHighlighted && "border-gold"
-                )
+          "text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-full cursor-pointer",
+          isUnresolved && "border-dashed"
         )}
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelect(node.id);
+        }}
+        onMouseEnter={() => onHover(node.id)}
+        onMouseLeave={onLeave}
+        onFocus={() => onHover(node.id)}
+        onBlur={onLeave}
+        aria-label={node.label}
       >
-        {order && (
-          <span className="block font-mono text-[9px] tracking-[0.16em] text-muted-light mb-0.5">
-            {order}
-          </span>
-        )}
-        {node.label}
-      </span>
-    </motion.button>
+        <span
+          className={cn(
+            "block transition-colors duration-300",
+            isDomain
+              ? cn(
+                  "font-display font-medium tracking-tight",
+                  compact ? "text-xl md:text-2xl" : "text-2xl md:text-[2rem]",
+                  "px-5 py-2.5 border-2 rounded-full",
+                  invert
+                    ? "border-paper/30 bg-paper/5 text-paper hover:border-paper/60 hover:bg-paper/10"
+                    : "border-line bg-paper text-ink hover:border-line-dark hover:bg-paper-deep",
+                  isFocus && (invert ? "border-accent-soft text-paper bg-paper/10" : "border-accent text-accent-ink bg-paper"),
+                  isHighlighted && (invert ? "border-gold/60" : "border-gold")
+                )
+              : isSmall
+                ? cn(
+                    "font-body text-sm md:text-[15px] leading-snug",
+                    isUnresolved
+                      ? cn(
+                          "italic border border-dashed px-3 py-1.5 rounded-full",
+                          invert
+                            ? "text-accent-soft border-accent-soft/50 bg-transparent"
+                            : "text-accent-ink border-accent-soft bg-paper"
+                        )
+                      : cn(
+                          "px-2.5 py-1 rounded-full",
+                          invert
+                            ? "text-paper/60 hover:text-paper hover:bg-paper/5"
+                            : "text-muted hover:text-ink hover:bg-paper/80"
+                        ),
+                    isFocus && (invert ? "text-paper font-medium" : "text-ink font-medium"),
+                    isHighlighted && (invert ? "text-accent-soft" : "text-accent-ink font-medium")
+                  )
+                : cn(
+                    "font-display text-base md:text-lg font-medium",
+                    "px-3.5 py-2 border-2 rounded-full",
+                    invert
+                      ? "border-paper/25 bg-paper/5 text-paper/80 hover:border-paper/50 hover:text-paper"
+                      : "border-line bg-paper text-ink-soft hover:border-line-dark hover:text-ink",
+                    isFocus && (invert ? "border-accent-soft text-paper" : "border-accent text-accent-ink"),
+                    isHighlighted && (invert ? "border-gold/60" : "border-gold")
+                  )
+          )}
+        >
+          {order && (
+            <span className="block font-mono text-[9px] tracking-[0.16em] text-muted-light mb-0.5">
+              {order}
+            </span>
+          )}
+          {node.label}
+        </span>
+      </button>
+    </motion.div>
   );
 }
 
@@ -147,7 +167,7 @@ function AtlasSidePanel({
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 24 }}
       transition={{ duration: 0.45, ease }}
-      className="absolute top-0 right-0 h-full w-full md:w-[340px] lg:w-[380px] border-l border-line bg-paper/95 backdrop-blur-md overflow-y-auto z-40"
+      className="absolute top-0 right-0 h-full w-full md:w-[340px] lg:w-[380px] border-l border-line bg-paper overflow-y-auto z-40"
       aria-label={`Details for ${node.label}`}
     >
       <div className="p-6 md:p-8">
@@ -228,10 +248,12 @@ function AtlasSidePanel({
 
 interface AtlasOfRecurringQuestionsProps {
   compact?: boolean;
+  invert?: boolean;
 }
 
 export function AtlasOfRecurringQuestions({
   compact = false,
+  invert = false,
 }: AtlasOfRecurringQuestionsProps) {
   const prefersReducedMotion = useReducedMotion();
   const [focusId, setFocusId] = useState<string | null>(null);
@@ -256,8 +278,14 @@ export function AtlasOfRecurringQuestions({
   }, [filter, pathIds, pathStep]);
 
   const positioned = useMemo(
-    () => computeLayout(focusId, pathIds.slice(0, pathStep + 1), highlightedIds),
-    [focusId, pathIds, pathStep, highlightedIds]
+    () =>
+      computeLayout(
+        focusId,
+        pathIds.slice(0, pathStep + 1),
+        highlightedIds,
+        compact
+      ),
+    [focusId, pathIds, pathStep, highlightedIds, compact]
   );
 
   const lines = useMemo(
@@ -414,12 +442,15 @@ export function AtlasOfRecurringQuestions({
 
       {compact && (
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+          <p className={cn("font-mono text-[10px] uppercase tracking-[0.14em]", invert ? "text-paper/50" : "text-muted")}>
             Click a constellation to explore
           </p>
           <Link
             href="/atlas"
-            className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent hover:text-accent-ink transition-colors"
+            className={cn(
+              "font-mono text-[10px] uppercase tracking-[0.14em] transition-colors",
+              invert ? "text-accent-soft hover:text-paper" : "text-accent hover:text-accent-ink"
+            )}
           >
             Open full atlas →
           </Link>
@@ -460,8 +491,9 @@ export function AtlasOfRecurringQuestions({
       {/* Graph canvas */}
       <div
         className={cn(
-          "relative rounded-3xl border border-line bg-paper/50 overflow-hidden",
-          compact ? "h-[420px] md:h-[480px]" : "h-[520px] md:h-[640px] lg:h-[720px]"
+          "atlas-canvas relative rounded-none border-2 overflow-hidden",
+          invert ? "border-paper/25 bg-ink" : "border-line bg-paper",
+          compact ? "h-[460px] md:h-[520px]" : "h-[560px] md:h-[680px] lg:h-[760px]"
         )}
         onClick={reset}
         role="presentation"
@@ -478,7 +510,7 @@ export function AtlasOfRecurringQuestions({
               y1={`${line.y1 * 100}%`}
               x2={`${line.x2 * 100}%`}
               y2={`${line.y2 * 100}%`}
-              stroke="var(--line-dark)"
+              stroke={invert ? "rgba(247,242,232,0.25)" : "var(--line-dark)"}
               strokeWidth={1}
               initial={prefersReducedMotion ? false : { opacity: 0 }}
               animate={{ opacity: 0.45 }}
@@ -506,9 +538,7 @@ export function AtlasOfRecurringQuestions({
 
         {/* Nodes */}
         <div className="absolute inset-0" onClick={(e) => e.stopPropagation()}>
-          {positioned
-            .filter((p) => !p.isRoot || !focusId || p.isPath || p.opacity > 0.2)
-            .map((p) => (
+          {positioned.map((p) => (
               <NodeButton
                 key={p.node.id}
                 positioned={p}
@@ -517,8 +547,9 @@ export function AtlasOfRecurringQuestions({
                 onLeave={() => setHoverId(null)}
                 compact={compact}
                 filter={filter}
+                invert={invert}
               />
-            ))}
+          ))}
         </div>
 
         {/* Side panel */}

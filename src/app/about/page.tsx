@@ -3,6 +3,8 @@ import { Container } from "@/components/Container";
 import { PageTransition } from "@/components/PageTransition";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SectionLabel } from "@/components/SectionLabel";
+import { PhotoPlaceholder } from "@/components/PhotoPlaceholder";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About",
@@ -62,16 +64,33 @@ export default function AboutPage() {
           </h1>
         </ScrollReveal>
 
-        <ScrollReveal delay={0.1}>
-          <p className="mt-8 md:mt-12 font-body text-xl md:text-2xl leading-relaxed text-ink-soft max-w-3xl">
-            Dhruv Ramu works across computational biology, biotech strategy, and
-            research education. His work spans cancer transcriptomics,
-            gene-expression analysis, student research systems, and healthcare
-            strategy. He is especially interested in how rigorous technical
-            methods can be translated into usable tools, institutions, and
-            decisions.
-          </p>
-        </ScrollReveal>
+        <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-[240px_1fr] lg:grid-cols-[280px_1fr] gap-10 md:gap-14 items-start">
+          <ScrollReveal>
+            <div className="relative">
+              <div className="absolute -inset-2 border-2 border-ink translate-x-3 translate-y-3" aria-hidden />
+              <div className="relative aspect-[3/4] max-w-[280px] overflow-hidden bg-paper-deep">
+                <Image
+                  src="/Photo of me.JPG"
+                  alt="Dhruv Ramu"
+                  fill
+                  className="object-cover object-top grayscale-[15%]"
+                  sizes="280px"
+                />
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.1}>
+            <p className="font-body text-xl md:text-2xl leading-relaxed text-ink-soft">
+              Dhruv Ramu works across computational biology, biotech strategy, and
+              research education. His work spans cancer transcriptomics,
+              gene-expression analysis, student research systems, and healthcare
+              strategy. He is especially interested in how rigorous technical
+              methods can be translated into usable tools, institutions, and
+              decisions.
+            </p>
+          </ScrollReveal>
+        </div>
 
         <div className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20">
           <ScrollReveal>

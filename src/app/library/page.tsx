@@ -5,6 +5,7 @@ import { PageTransition } from "@/components/PageTransition";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SectionLabel } from "@/components/SectionLabel";
 import { BookEntry } from "@/components/BookEntry";
+import { PhotoPlaceholder } from "@/components/PhotoPlaceholder";
 
 export const metadata: Metadata = {
   title: "Library",
@@ -39,6 +40,13 @@ export default function LibraryPage() {
             that have shaped how I think.
           </p>
         </ScrollReveal>
+
+        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <PhotoPlaceholder aspectRatio="3/4" label="Shelf" className="col-span-1" />
+          <PhotoPlaceholder aspectRatio="3/4" label="Shelf" className="col-span-1 hidden sm:block" />
+          <PhotoPlaceholder aspectRatio="3/4" label="Reading desk" className="col-span-1 hidden md:block" />
+          <PhotoPlaceholder aspectRatio="3/4" label="Marginalia" className="col-span-1 hidden lg:block" />
+        </div>
 
         {reading.length > 0 && (
           <section className="mt-16 md:mt-20">

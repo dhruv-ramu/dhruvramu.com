@@ -20,8 +20,6 @@ export function CustomCursor() {
   useEffect(() => {
     if (!enabled) return;
 
-    document.body.classList.add("custom-cursor-active");
-
     const move = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
       setVisible(true);
@@ -33,7 +31,6 @@ export function CustomCursor() {
     window.addEventListener("mouseleave", hide);
 
     return () => {
-      document.body.classList.remove("custom-cursor-active");
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseleave", hide);
     };
@@ -43,14 +40,16 @@ export function CustomCursor() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 w-3 h-3 rounded-full border border-ink/30 pointer-events-none z-[100] mix-blend-difference"
+      className="fixed top-0 left-0 pointer-events-none z-[200]"
       animate={{
-        x: position.x - 6,
-        y: position.y - 6,
-        opacity: visible ? 0.6 : 0,
-        scale: visible ? 1 : 0.5,
+        x: position.x - 5,
+        y: position.y - 5,
+        opacity: visible ? 1 : 0,
       }}
-      transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
-    />
+      transition={{ type: "spring", stiffness: 600, damping: 32, mass: 0.4 }}
+      aria-hidden
+    >
+      <span className="block w-2.5 h-2.5 rounded-full bg-accent/70 ring-1 ring-accent/30" />
+    </motion.div>
   );
 }

@@ -34,46 +34,49 @@ export function SiteHeader() {
         transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
       >
         <nav
-          className="flex items-center justify-between gap-2 px-4 py-2.5 rounded-full border border-line bg-paper/80 backdrop-blur-md shadow-[0_2px_20px_rgba(21,18,14,0.04)]"
+          className="flex items-center justify-between gap-2 px-4 py-2.5 rounded-full border border-line bg-paper/90 shadow-[0_2px_20px_rgba(21,18,14,0.04)]"
           aria-label="Main navigation"
         >
           <Link
             href="/"
-            className="font-mono text-[11px] tracking-[0.14em] text-ink-soft hover:text-ink transition-colors shrink-0 pl-1"
+            className="font-mono text-[11px] tracking-[0.14em] text-ink-soft hover:text-ink hover:bg-paper-deep rounded-full px-2 py-1 transition-all duration-300 shrink-0"
           >
             D.R.
           </Link>
 
           <ul className="flex items-center gap-0.5">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={cn(
-                    "relative font-mono text-[11px] uppercase tracking-[0.12em] px-3 py-1.5 rounded-full transition-colors duration-300",
-                    isActive(item.href)
-                      ? "text-ink"
-                      : "text-muted hover:text-ink-soft"
-                  )}
-                >
-                  {item.label}
-                  {isActive(item.href) && (
-                    <motion.span
-                      layoutId="nav-indicator"
-                      className="absolute inset-0 bg-paper-deep rounded-full -z-10 border border-line"
-                      transition={{
-                        type: "spring",
-                        stiffness: 380,
-                        damping: 30,
-                      }}
-                    />
-                  )}
-                </Link>
-              </li>
-            ))}
+            {navItems.map((item) => {
+              const active = isActive(item.href);
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      "relative font-mono text-[11px] uppercase tracking-[0.12em] px-3 py-1.5 rounded-full transition-all duration-300",
+                      active
+                        ? "text-ink"
+                        : "text-muted hover:text-ink hover:bg-paper-deep hover:border-line border border-transparent"
+                    )}
+                  >
+                    {item.label}
+                    {active && (
+                      <motion.span
+                        layoutId="nav-indicator"
+                        className="absolute inset-0 bg-paper-deep rounded-full -z-10 border border-line-dark"
+                        transition={{
+                          type: "spring",
+                          stiffness: 380,
+                          damping: 30,
+                        }}
+                      />
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
-          <ThemeToggle />
+          <ThemeToggle className="hover:bg-paper-deep rounded-full px-1 transition-colors duration-300" />
         </nav>
       </motion.header>
 

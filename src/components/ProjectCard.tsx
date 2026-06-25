@@ -32,12 +32,21 @@ export function ProjectCard({
       <Link
         href={`/projects/${slug}`}
         className={cn(
-          "group block h-full p-6 md:p-8 rounded-3xl border border-line",
-          "bg-[rgba(251,248,241,0.72)] backdrop-blur-[12px]",
-          "transition-all duration-300 ease-out",
+          "group block h-full rounded-3xl border border-line overflow-hidden",
+          "bg-paper transition-all duration-300 ease-out",
           "hover:bg-paper-deep hover:border-line-dark"
         )}
       >
+        <div
+          className="aspect-[16/9] bg-paper-deep border-b border-line flex items-center justify-center"
+          aria-hidden
+        >
+          <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-muted-light">
+            Project image
+          </span>
+        </div>
+
+        <div className="p-6 md:p-8">
         <div className="flex items-start justify-between gap-4 mb-6">
           <motion.span
             className="font-mono text-[11px] tracking-[0.14em] text-muted-light group-hover:text-gold transition-colors duration-300"
@@ -74,6 +83,7 @@ export function ProjectCard({
             ))}
           </div>
         )}
+        </div>
       </Link>
     </motion.div>
   );
