@@ -7,17 +7,33 @@ export interface VinylRecord {
   previewUrl: string;
 }
 
-/** Default resting record: Still Loving You */
-export const DEFAULT_VINYL_ID = "still-loving-you";
+/** Default resting record: Wind of Change */
+export const DEFAULT_VINYL_ID = "wind-of-change";
 
 export const vinylCollection: VinylRecord[] = [
   {
-    id: "still-loving-you",
-    title: "Still Loving You",
+    id: "wind-of-change",
+    title: "Wind of Change",
     artist: "Scorpions",
-    year: "1984",
-    cover: "/vinyl/covers/still-loving-you.jpg",
-    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a1/84/bd/a184bd2b-fe7f-40bc-8b61-911034b44dca/mzaf_17778569598453434009.plus.aac.p.m4a",
+    year: "1990",
+    cover: "/vinyl/covers/wind-of-change.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/fe/ee/d4/feeed4a7-ac1a-6f05-30e0-fa94f928d399/mzaf_17504970637263282210.plus.aac.p.m4a",
+  },
+  {
+    id: "losing-my-religion",
+    title: "Losing My Religion",
+    artist: "R.E.M.",
+    year: "1991",
+    cover: "/vinyl/covers/losing-my-religion.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/af/be/f5/afbef592-8f00-fe28-8ab4-5c070827b2f8/mzaf_4959761764791628207.plus.aac.p.m4a",
+  },
+  {
+    id: "take-it-easy",
+    title: "Take It Easy",
+    artist: "Eagles",
+    year: "1972",
+    cover: "/vinyl/covers/take-it-easy.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/84/f6/86/84f686a9-6b79-668a-c182-e8d816ff3687/mzaf_12814377987078818013.plus.aac.p.m4a",
   },
   {
     id: "peace-of-mind",
@@ -26,14 +42,6 @@ export const vinylCollection: VinylRecord[] = [
     year: "1976",
     cover: "/vinyl/covers/peace-of-mind.jpg",
     previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/95/17/41/951741b0-8f86-0e43-f832-2e7bd05b9ec9/mzaf_1072555438857215849.plus.aac.p.m4a",
-  },
-  {
-    id: "wind-of-change",
-    title: "Wind of Change",
-    artist: "Scorpions",
-    year: "1990",
-    cover: "/vinyl/covers/wind-of-change.jpg",
-    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/fe/ee/d4/feeed4a7-ac1a-6f05-30e0-fa94f928d399/mzaf_17504970637263282210.plus.aac.p.m4a",
   },
   {
     id: "any-way-you-want-it",
@@ -92,14 +100,6 @@ export const vinylCollection: VinylRecord[] = [
     previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/16/96/d3/1696d3bc-84e8-4ee2-bd40-fe6f5507400a/mzaf_18233498331080095001.plus.aac.p.m4a",
   },
   {
-    id: "everlasting-bass",
-    title: "Everlasting Bass",
-    artist: "Rodney O & Joe Cooley",
-    year: "1988",
-    cover: "/vinyl/covers/everlasting-bass.jpg",
-    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/81/9d/f4/819df4f4-29b8-ab33-2183-a558118f8591/mzaf_12634477782122705142.plus.aac.p.m4a",
-  },
-  {
     id: "big-poppa",
     title: "Big Poppa",
     artist: "The Notorious B.I.G.",
@@ -132,12 +132,12 @@ export const vinylCollection: VinylRecord[] = [
     previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/09/93/7d/09937dd0-967b-b304-a485-053dfaf7d0c6/mzaf_16227325571594810181.plus.aac.p.m4a",
   },
   {
-    id: "pyar-manga-hai",
-    title: "Pyar Manga Hai Tumhi Se (The Unwind Mix)",
-    artist: "Sreerama Chandra",
-    year: "2016",
-    cover: "/vinyl/covers/pyar-manga-hai.jpg",
-    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/d6/b0/8d/d6b08df6-4adb-3f0e-c4c5-3d79a1ee75a5/mzaf_12984619018159243127.plus.aac.p.m4a",
+    id: "chalte-chalte",
+    title: "Chalte Chalte (Pt. I)",
+    artist: "Kishore Kumar",
+    year: "1976",
+    cover: "/vinyl/covers/chalte-chalte.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/5b/7b/d8/5b7bd846-a21e-cccb-61f3-0b2bde78e41f/mzaf_5214898480351386990.plus.aac.p.m4a",
   },
   {
     id: "all-eyez-on-me",
@@ -202,6 +202,102 @@ export const vinylCollection: VinylRecord[] = [
     year: "1985",
     cover: "/vinyl/covers/heaven.jpg",
     previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f8/c5/6b/f8c56ba6-b52a-4cce-3234-f225da838e7d/mzaf_3847569261753735800.plus.aac.p.m4a",
+  },
+  {
+    id: "panama",
+    title: "Panama",
+    artist: "Van Halen",
+    year: "1984",
+    cover: "/vinyl/covers/panama.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a7/2a/fb/a72afbb8-c225-c83f-e54b-ad3f2aca47be/mzaf_7998834944234645369.plus.aac.p.m4a",
+  },
+  {
+    id: "santeria",
+    title: "Santeria",
+    artist: "Sublime",
+    year: "1996",
+    cover: "/vinyl/covers/santeria.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3a/e7/d3/3ae7d335-103b-2db3-d51b-dbc807851b34/mzaf_10017657168201749025.plus.aac.p.m4a",
+  },
+  {
+    id: "harvest-moon",
+    title: "Harvest Moon",
+    artist: "Neil Young",
+    year: "1992",
+    cover: "/vinyl/covers/harvest-moon.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2d/c9/d8/2dc9d8d2-4833-3f73-9468-1a85dd8fca8d/mzaf_17391071788735687900.plus.aac.p.m4a",
+  },
+  {
+    id: "sway",
+    title: "Sway (Quien Sera)",
+    artist: "Dean Martin",
+    year: "1954",
+    cover: "/vinyl/covers/sway.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/db/cd/19/dbcd19ff-3a73-ed9c-98b7-3bd530454890/mzaf_6880542915912181318.plus.aac.p.m4a",
+  },
+  {
+    id: "dont-let-me-down",
+    title: "Don't Let Me Down",
+    artist: "The Beatles",
+    year: "1969",
+    cover: "/vinyl/covers/dont-let-me-down.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ed/81/e4/ed81e401-62aa-ec77-e074-814b027c3458/mzaf_9768523682072995383.plus.aac.p.m4a",
+  },
+  {
+    id: "dancing-in-the-dark",
+    title: "Dancing In the Dark",
+    artist: "Bruce Springsteen",
+    year: "1984",
+    cover: "/vinyl/covers/dancing-in-the-dark.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/3c/a8/0a/3ca80ac1-92fe-8d9f-e97c-469bdb4f19f9/mzaf_2843471731886662529.plus.aac.p.m4a",
+  },
+  {
+    id: "were-not-gonna-take-it",
+    title: "We're Not Gonna Take It",
+    artist: "Twisted Sister",
+    year: "1984",
+    cover: "/vinyl/covers/were-not-gonna-take-it.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/bb/98/ea/bb98eacd-c4d2-a4cb-cfac-16a4d3d7f027/mzaf_5421633134971459545.plus.aac.p.m4a",
+  },
+  {
+    id: "saturday-nights-alright",
+    title: "Saturday Night\u2019s Alright (For Fighting)",
+    artist: "Elton John",
+    year: "1973",
+    cover: "/vinyl/covers/saturday-nights-alright.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ba/ab/d5/baabd547-c30a-f6d2-1341-10c27d896a43/mzaf_1014430208284736280.plus.aac.p.m4a",
+  },
+  {
+    id: "when-im-gone",
+    title: "When I'm Gone",
+    artist: "3 Doors Down",
+    year: "2002",
+    cover: "/vinyl/covers/when-im-gone.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3d/37/69/3d3769de-9a6f-3b60-e021-ade119803ce9/mzaf_12339776600920625646.plus.aac.p.m4a",
+  },
+  {
+    id: "is-this-love",
+    title: "Is This Love",
+    artist: "Bob Marley & The Wailers",
+    year: "1984",
+    cover: "/vinyl/covers/is-this-love.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/57/b4/86/57b48651-318d-4e27-e486-33f4e5faaa75/mzaf_5322223461518697391.plus.aac.p.m4a",
+  },
+  {
+    id: "stairway-to-heaven",
+    title: "Stairway to Heaven",
+    artist: "Led Zeppelin",
+    year: "1971",
+    cover: "/vinyl/covers/stairway-to-heaven.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/60/61/5f/60615fd1-7425-78b3-21ab-fed7411a89ea/mzaf_7178841208140363975.plus.aac.p.m4a",
+  },
+  {
+    id: "every-little-thing",
+    title: "Every Little Thing She Does Is Magic",
+    artist: "The Police",
+    year: "1981",
+    cover: "/vinyl/covers/every-little-thing.jpg",
+    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/77/5b/11/775b11e2-c37c-b126-2574-10706d11316b/mzaf_4404386934768758494.plus.aac.p.m4a",
   },
 ];
 

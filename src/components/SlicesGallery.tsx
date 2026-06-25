@@ -4,9 +4,8 @@ import Image from "next/image";
 import { PageTransition } from "@/components/PageTransition";
 import { Container } from "@/components/Container";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { PhotoPlaceholder } from "@/components/PhotoPlaceholder";
 import { cn } from "@/lib/utils";
-import { lifeSlices } from "@/data/life-slices";
+import { lifeSlices, photoWallSrc } from "@/data/life-slices";
 
 const aspectMap = {
   square: "aspect-square",
@@ -21,37 +20,41 @@ function SliceCard({
   caption,
   aspect = "landscape",
   span,
+  size = "default",
 }: {
-  src?: string;
+  src: string;
   alt: string;
   caption: string;
   aspect?: keyof typeof aspectMap;
   span?: string;
+  size?: "compact" | "default";
 }) {
   return (
-    <figure className={cn("group", span)}>
-      {src ? (
-        <div
-          className={cn(
-            "relative overflow-hidden rounded-2xl border border-line",
-            aspectMap[aspect]
-          )}
-        >
-          <Image
-            src={src}
-            alt={alt}
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
-        </div>
-      ) : (
-        <PhotoPlaceholder
-          label={alt}
-          aspectRatio={aspect === "portrait" ? "3/4" : aspect === "wide" ? "21/9" : aspect === "square" ? "square" : "4/3"}
-          className="[&_div]:rounded-2xl"
-        />
+    <figure
+      className={cn(
+        "group",
+        span,
+        size === "compact" && "max-w-[9.5rem] sm:max-w-[11rem] mx-auto w-full"
       )}
+    >
+      <div
+        className={cn(
+          "relative overflow-hidden rounded-2xl border border-line bg-paper-deep shadow-[3px_3px_0_var(--line-dark)]",
+          aspectMap[aspect]
+        )}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          sizes={size === "compact" ? "176px" : "(max-width: 768px) 100vw, 33vw"}
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-ink/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          aria-hidden
+        />
+      </div>
       <figcaption className="mt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-muted group-hover:text-ink transition-colors">
         {caption}
       </figcaption>
@@ -70,21 +73,20 @@ export function SlicesGallery() {
           </h1>
           <p className="mt-5 font-body text-lg md:text-xl text-ink-soft max-w-2xl leading-relaxed">
             Friends, trails, late nights, and the ordinary scenes that make up
-            most of a life. Add your photos to{" "}
-            <code className="font-mono text-sm text-ink">public/slices/</code> when
-            you&apos;re ready.
+            most of a life.
           </p>
         </ScrollReveal>
 
         <div className="mt-14 md:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {lifeSlices.map((slice, i) => (
-            <ScrollReveal key={slice.id} delay={0.05 * (i % 4)}>
+            <ScrollReveal key={slice.id} delay={0.04 * (i % 5)}>
               <SliceCard
-                src={slice.src}
+                src={photoWallSrc(slice.filename)}
                 alt={slice.alt}
                 caption={slice.caption}
                 aspect={slice.aspect}
                 span={slice.span}
+                size={slice.size}
               />
             </ScrollReveal>
           ))}
