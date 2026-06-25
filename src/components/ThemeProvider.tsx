@@ -4,11 +4,6 @@ import { createContext, useContext, useState } from "react";
 
 type Theme = "light" | "dark";
 
-function getInitialTheme(): Theme {
-  if (typeof document === "undefined") return "light";
-  return document.documentElement.classList.contains("dark") ? "dark" : "light";
-}
-
 const ThemeContext = createContext<{
   theme: Theme;
   toggleTheme: () => void;
@@ -18,7 +13,7 @@ const ThemeContext = createContext<{
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  const [theme, setTheme] = useState<Theme>("light");
 
   const toggleTheme = () => {
     setTheme((prev) => {

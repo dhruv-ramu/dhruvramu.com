@@ -8,6 +8,7 @@ export default function sitemap() {
     "/projects",
     "/writing",
     "/library",
+    "/atlas",
     "/about",
     "/resume",
     "/contact",

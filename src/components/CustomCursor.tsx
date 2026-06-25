@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 function isTouchDevice() {
-  if (typeof window === "undefined") return true;
   return (
     "ontouchstart" in window ||
     navigator.maxTouchPoints > 0 ||
@@ -15,11 +14,11 @@ function isTouchDevice() {
 export function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(false);
-  const [enabled] = useState(() => !isTouchDevice());
   const prefersReducedMotion = useReducedMotion();
+  const enabled = !prefersReducedMotion && !isTouchDevice();
 
   useEffect(() => {
-    if (!enabled || prefersReducedMotion) return;
+    if (!enabled) return;
 
     document.body.classList.add("custom-cursor-active");
 
@@ -38,9 +37,9 @@ export function CustomCursor() {
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseleave", hide);
     };
-  }, [enabled, prefersReducedMotion]);
+  }, [enabled]);
 
-  if (!enabled || prefersReducedMotion) return null;
+  if (!enabled) return null;
 
   return (
     <motion.div

@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { displaySerif, bodySerif, mono } from "@/lib/fonts";
-import { SiteHeader } from "@/components/SiteHeader";
-import { Footer } from "@/components/Footer";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { CustomCursor } from "@/components/CustomCursor";
+import { ClientShell } from "@/components/ClientShell";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -45,20 +43,11 @@ export default function RootLayout({
       className={`${displaySerif.variable} ${bodySerif.variable} ${mono.variable} h-full`}
       suppressHydrationWarning
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{if(localStorage.theme==='dark')document.documentElement.classList.add('dark')}catch(e){}`,
-          }}
-        />
-      </head>
       <body className="min-h-full flex flex-col paper-texture antialiased">
-        <ThemeProvider>
-          <CustomCursor />
-          <SiteHeader />
-          <main className="flex-1 pt-24 md:pt-28">{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}`}
+        </Script>
+        <ClientShell>{children}</ClientShell>
       </body>
     </html>
   );

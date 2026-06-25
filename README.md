@@ -119,7 +119,26 @@ npm run build
 npm start
 ```
 
-## Customization
+## The Atlas of Recurring Questions
+
+The interactive knowledge graph lives at `/atlas` and on the homepage. Node data is in `src/data/atlas.ts`.
+
+To add a node:
+
+```typescript
+{
+  id: "my-question",
+  label: "Why does X happen?",
+  type: "question", // domain | concept | question | artifact | method | book | unresolved
+  parent: "biomarkers",
+  description: "Optional longer description for the side panel.",
+  quote: "Optional hover marginalia.",
+  links: [
+    { label: "Essay: My Essay", href: "/writing/my-essay", kind: "essay" },
+  ],
+  related: ["other-node-id"],
+}
+```
 
 - **Colors**: Edit CSS variables in `src/app/globals.css`
 - **Fonts**: Configured in `src/lib/fonts.ts` (Cormorant Garamond, Newsreader, IBM Plex Mono)

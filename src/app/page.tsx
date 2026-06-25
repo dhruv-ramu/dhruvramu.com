@@ -4,7 +4,7 @@ import { SectionLabel } from "@/components/SectionLabel";
 import { AnimatedText } from "@/components/AnimatedText";
 import { ProjectCard } from "@/components/ProjectCard";
 import { WritingRow } from "@/components/WritingRow";
-import { IntellectualMap } from "@/components/IntellectualMap";
+import { AtlasOfRecurringQuestions } from "@/components/atlas/AtlasOfRecurringQuestions";
 import { PullQuote } from "@/components/PullQuote";
 import { PageTransition } from "@/components/PageTransition";
 import {
@@ -106,18 +106,23 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Intellectual Map */}
+      {/* Atlas of Recurring Questions */}
       <section className="py-16 md:py-24 border-t border-line">
         <Container>
           <ScrollReveal>
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted mb-4">
+              The Atlas of Recurring Questions
+            </p>
             <h2 className="font-display text-3xl md:text-5xl font-medium tracking-tight text-ink max-w-3xl leading-[1.15]">
               An incomplete map of what I keep{" "}
               <em className="italic text-accent-ink">returning to</em>.
             </h2>
+            <p className="mt-4 font-body text-muted max-w-2xl">
+              Things I study, things I have built, things I have written, and
+              things I do not understand yet.
+            </p>
           </ScrollReveal>
-          <div className="mt-12">
-            <IntellectualMap />
-          </div>
+          <AtlasOfRecurringQuestions compact />
         </Container>
       </section>
 
