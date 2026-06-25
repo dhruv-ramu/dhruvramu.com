@@ -1,65 +1,132 @@
-import Image from "next/image";
+import { Container } from "@/components/Container";
+import { Button } from "@/components/Button";
+import { SectionLabel } from "@/components/SectionLabel";
+import { AnimatedText } from "@/components/AnimatedText";
+import { ProjectCard } from "@/components/ProjectCard";
+import { WritingRow } from "@/components/WritingRow";
+import { IntellectualMap } from "@/components/IntellectualMap";
+import { PullQuote } from "@/components/PullQuote";
+import { PageTransition } from "@/components/PageTransition";
+import {
+  ScrollReveal,
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/ScrollReveal";
+import { getFeaturedProjects, getAllWriting } from "@/lib/content";
 
-export default function Home() {
+export default function HomePage() {
+  const featuredProjects = getFeaturedProjects().slice(0, 4);
+  const recentWriting = getAllWriting().slice(0, 4);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+    <PageTransition>
+      {/* Hero */}
+      <section className="relative min-h-[85vh] flex items-center">
+        <Container className="relative py-16 md:py-24">
+          {/* Side label */}
+          <div className="hidden lg:block absolute -left-4 top-1/2 -translate-y-1/2 -rotate-90 origin-center">
+            <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-light whitespace-nowrap">
+              A personal archive of research, strategy, and ideas
+            </p>
+          </div>
+
+          <ScrollReveal>
+            <h1 className="hero-heading font-display text-ink">
+              Dhruv Ramu
+            </h1>
+          </ScrollReveal>
+
+          <div className="mt-8 md:mt-12 max-w-4xl">
+            <AnimatedText
+              lines={[
+                "Computational biology, biotech strategy,",
+                "and notes on how people learn, build, and think.",
+              ]}
+              italicWords={["build", "think"]}
+              className="font-display text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.1] text-ink"
+              delay={0.2}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+          </div>
+
+          <ScrollReveal delay={0.4}>
+            <p className="hero-subtitle mt-8 md:mt-10 max-w-2xl">
+              I work across cancer transcriptomics, research education, healthcare
+              strategy, and systems for making ideas legible.
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.5}>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Button href="/writing">Read the writing</Button>
+              <Button href="/projects">View projects</Button>
+              <Button href="/resume" variant="ghost">
+                Download CV
+              </Button>
+            </div>
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      {/* Featured Work */}
+      <section className="py-16 md:py-24 border-t border-line">
+        <Container>
+          <SectionLabel>Selected work</SectionLabel>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+            {featuredProjects.map((project, i) => (
+              <StaggerItem key={project.slug}>
+                <ProjectCard
+                  number={String(i + 1).padStart(2, "0")}
+                  slug={project.slug}
+                  frontmatter={project.frontmatter}
+                />
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </Container>
+      </section>
+
+      {/* Recent Notes */}
+      <section className="py-16 md:py-24">
+        <Container>
+          <SectionLabel>Recent notes</SectionLabel>
+          <div>
+            {recentWriting.map((post) => (
+              <WritingRow
+                key={post.slug}
+                slug={post.slug}
+                frontmatter={post.frontmatter}
+              />
+            ))}
+          </div>
+          <div className="mt-8">
+            <Button href="/writing" variant="ghost">
+              View all writing →
+            </Button>
+          </div>
+        </Container>
+      </section>
+
+      {/* Intellectual Map */}
+      <section className="py-16 md:py-24 border-t border-line">
+        <Container>
+          <ScrollReveal>
+            <h2 className="font-display text-3xl md:text-5xl font-medium tracking-tight text-ink max-w-3xl leading-[1.15]">
+              An incomplete map of what I keep{" "}
+              <em className="italic text-accent-ink">returning to</em>.
+            </h2>
+          </ScrollReveal>
+          <div className="mt-12">
+            <IntellectualMap />
+          </div>
+        </Container>
+      </section>
+
+      {/* Closing Quote */}
+      <section className="py-16 md:py-24">
+        <Container>
+          <PullQuote quote="Good work is usually not the result of having cleaner answers. It is the result of asking better-shaped questions" />
+        </Container>
+      </section>
+    </PageTransition>
   );
 }

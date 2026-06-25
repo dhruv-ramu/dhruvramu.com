@@ -20,7 +20,7 @@ export interface ProjectFrontmatter extends BaseContent {
   role?: string;
 }
 
-export interface WritingFrontmatter extends BaseContent {}
+export type WritingFrontmatter = BaseContent;
 
 export interface BookFrontmatter {
   title: string;

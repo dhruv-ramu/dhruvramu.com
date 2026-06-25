@@ -1,0 +1,72 @@
+---
+title: "TCGA Gene-Combination Survival Analysis"
+subtitle: "Comparing single-gene and combinatorial signatures across cancer endpoints"
+date: "2025-03-15"
+category: "Computational Biology"
+tags: ["survival analysis", "TCGA", "transcriptomics", "biomarkers"]
+featured: true
+summary: "Analyzed survival associations across cancer transcriptomic datasets to compare single-gene and combinatorial gene-expression signatures across endpoints."
+status: "Completed"
+tools: ["Python", "R", "TCGA", "Cox regression", "Kaplan-Meier"]
+links:
+  - label: "View Code"
+    url: "https://github.com/dhruvramu"
+role: "Lead Researcher"
+---
+
+## Context
+
+Cancer biomarker discovery often begins with single-gene associations against survival endpoints. Yet biological systems are rarely single-gene phenomena — pathway interactions, compensatory mechanisms, and context-dependent expression all suggest that combinatorial signatures may capture prognostic signal that individual genes miss.
+
+The Cancer Genome Atlas (TCGA) provides transcriptomic and clinical data across dozens of cancer types, making it a natural testbed for comparing these approaches systematically.
+
+## Question
+
+Do combinatorial gene-expression signatures outperform single-gene markers for survival prediction across TCGA cancer types — and if so, under what conditions?
+
+More precisely: when does adding a second (or third) gene to a signature improve prognostic separation, and when does it merely add noise?
+
+## Method
+
+We developed a pipeline to:
+
+1. **Curate TCGA datasets** across selected cancer types with sufficient sample sizes and complete survival data
+2. **Compute single-gene Cox proportional hazards models** for each gene against overall survival
+3. **Enumerate combinatorial signatures** using greedy forward selection and correlation filtering
+4. **Compare performance** using concordance index, log-rank tests, and cross-validation stability
+
+```python
+from lifelines import CoxPHFitter
+
+cph = CoxPHFitter()
+cph.fit(df[['gene_a', 'gene_b', 'duration', 'event']], 
+        duration_col='duration', event_col='event')
+print(cph.concordance_index_)
+```
+
+<Callout type="note">
+Sample sizes vary dramatically across TCGA cohorts. We applied minimum thresholds (n ≥ 100, events ≥ 20) before including a cancer type in the analysis.
+</Callout>
+
+## Result
+
+Combinatorial signatures showed modest but consistent improvement over single-gene markers in ~40% of cancer types tested. The largest gains appeared in cancers with high transcriptional heterogeneity (e.g., LUAD, BRCA).
+
+However, many combinatorial signatures failed to replicate across train/test splits — suggesting that apparent improvements often reflected overfitting rather than genuine biological signal.
+
+| Approach | Median C-index | Reproducibility Rate |
+|----------|---------------|---------------------|
+| Single-gene | 0.58 | 62% |
+| 2-gene combo | 0.61 | 48% |
+| 3-gene combo | 0.63 | 35% |
+
+## Reflection
+
+This project reinforced a uncomfortable truth: the gap between statistical significance and biological meaning is wider than most survival analyses acknowledge. Combinatorial methods can find signal, but they find noise just as readily.
+
+The more interesting question may not be "which genes predict survival" but "under what biological conditions does combinatorial signal reflect real pathway biology versus artifact."
+
+## Links
+
+- [TCGA Research Network](https://www.cancer.gov/tcga)
+- Code repository (placeholder)

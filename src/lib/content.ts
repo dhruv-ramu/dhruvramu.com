@@ -1,3 +1,5 @@
+import "server-only";
+
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -81,12 +83,4 @@ export function getAdjacentWriting(slug: string) {
     prev: index < posts.length - 1 ? posts[index + 1] : null,
     next: index > 0 ? posts[index - 1] : null,
   };
-}
-
-export function formatDate(date: string): string {
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
 }

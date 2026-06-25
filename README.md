@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dhruv Ramu — Personal Portfolio & Blog
+
+An editorial, serif-heavy personal website built with Next.js, TypeScript, Tailwind CSS, MDX, and Framer Motion.
+
+## Tech Stack
+
+- **Next.js 16** (App Router)
+- **TypeScript**
+- **Tailwind CSS v4**
+- **MDX** via `next-mdx-remote` + `gray-matter`
+- **Framer Motion** for animations
+- **KaTeX** for math rendering
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Adding Content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Projects
 
-## Learn More
+Create a new file in `content/projects/your-project-slug.mdx`:
 
-To learn more about Next.js, take a look at the following resources:
+```mdx
+---
+title: "Project Title"
+subtitle: "Optional subtitle"
+date: "2025-06-01"
+category: "Computational Biology"
+tags: ["tag1", "tag2"]
+featured: true
+summary: "One-line summary for cards and metadata."
+status: "Completed"
+tools: ["Python", "R"]
+links:
+  - label: "GitHub"
+    url: "https://github.com/..."
+role: "Lead Researcher"
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Context
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Your project content here...
+```
 
-## Deploy on Vercel
+The page will be available at `/projects/your-project-slug`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Writing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Create a new file in `content/writing/your-post-slug.mdx`:
+
+```mdx
+---
+title: "Post Title"
+subtitle: "Optional subtitle"
+date: "2025-06-01"
+category: "Essays"
+tags: ["tag1", "tag2"]
+featured: false
+summary: "One-line summary."
+status: "Published"
+---
+
+Your essay content here...
+```
+
+The page will be available at `/writing/your-post-slug`.
+
+### Books
+
+Create a new file in `content/books/book-slug.mdx`:
+
+```mdx
+---
+title: "Book Title"
+author: "Author Name"
+status: "reading"
+rating: 4
+note: "Short reading note."
+reviewSlug: "writing-slug-if-reviewed"
+theme: "Theme category"
+---
+```
+
+### MDX Components
+
+Available in MDX content:
+
+- `<Callout type="note|warning|insight">...</Callout>`
+- `<PullQuote quote="..." attribution="..." />`
+- `<Footnote>...</Footnote>`
+- Standard markdown with styled headings, blockquotes, code blocks, and tables
+- Math via `$inline$` and `$$block$$` syntax (KaTeX)
+
+## Project Structure
+
+```
+content/
+  projects/     # Project MDX files
+  writing/      # Blog/essay MDX files
+  books/        # Library entries
+src/
+  app/          # Next.js pages
+  components/   # Reusable UI components
+  lib/          # Content parsing, fonts, utilities
+```
+
+## Deployment
+
+Deploy to Vercel or any platform supporting Next.js:
+
+```bash
+npm run build
+npm start
+```
+
+## Customization
+
+- **Colors**: Edit CSS variables in `src/app/globals.css`
+- **Fonts**: Configured in `src/lib/fonts.ts` (Cormorant Garamond, Newsreader, IBM Plex Mono)
+- **Navigation**: Edit `src/components/SiteHeader.tsx`
+- **Contact info**: Edit `src/app/contact/page.tsx`
+- **CV content**: Edit `src/app/resume/page.tsx`
+
+## License
+
+Personal site — all rights reserved.
