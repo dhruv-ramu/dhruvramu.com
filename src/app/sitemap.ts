@@ -7,7 +7,7 @@ export default function sitemap() {
     "",
     "/projects",
     "/writing",
-    "/tastes",
+    "/my-room",
     "/slices",
     "/atlas",
     "/about",

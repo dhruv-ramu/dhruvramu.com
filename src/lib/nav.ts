@@ -2,9 +2,8 @@ export const siteNav = [
   { href: "/", label: "Home", exact: true },
   { href: "/projects", label: "Projects" },
   { href: "/writing", label: "Writing" },
-  { href: "/tastes", label: "Tastes" },
+  { href: "/my-room", label: "My Room" },
   { href: "/slices", label: "Slices" },
-  { href: "/#about", label: "About", hash: true },
   { href: "/#contact", label: "Contact", hash: true },
 ] as const;
 
