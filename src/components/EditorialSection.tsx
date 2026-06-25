@@ -8,7 +8,7 @@ interface EditorialSectionProps {
   children: React.ReactNode;
   className?: string;
   invert?: boolean;
-  bleed?: boolean;
+  titleSize?: "default" | "large" | "medium";
 }
 
 export function EditorialSection({
@@ -19,13 +19,18 @@ export function EditorialSection({
   children,
   className,
   invert = false,
-  bleed = false,
+  titleSize = "default",
 }: EditorialSectionProps) {
+  const titleClasses = {
+    default: "text-3xl md:text-4xl lg:text-5xl",
+    large: "text-4xl md:text-5xl lg:text-6xl",
+    medium: "text-2xl md:text-3xl lg:text-4xl",
+  };
+
   return (
     <section
       className={cn(
-        "relative",
-        bleed && "w-screen ml-[calc(50%-50vw)]",
+        "relative px-6 md:px-10 lg:px-12 xl:px-14",
         invert ? "bg-ink text-paper" : "",
         className
       )}
@@ -42,13 +47,13 @@ export function EditorialSection({
         </span>
       )}
 
-      <div className={cn("relative z-10", bleed && "px-6 md:px-10 lg:px-16 xl:px-20")}>
-        <header className="mb-12 md:mb-16">
-          <div className="flex items-center gap-4 mb-6">
+      <div className="relative z-10">
+        <header className="mb-10 md:mb-12">
+          <div className="flex items-center gap-4 mb-5">
             <span
               className={cn(
                 "section-label !mb-0",
-                invert && "!text-paper/50"
+                invert && "!text-paper/60"
               )}
             >
               {label}
@@ -64,7 +69,8 @@ export function EditorialSection({
           {title && (
             <h2
               className={cn(
-                "font-display text-4xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.02] max-w-4xl",
+                "font-display font-medium tracking-tight leading-[1.08] max-w-3xl",
+                titleClasses[titleSize],
                 invert ? "text-paper" : "text-ink"
               )}
             >
@@ -74,8 +80,8 @@ export function EditorialSection({
           {description && (
             <p
               className={cn(
-                "mt-5 font-body text-lg md:text-xl leading-relaxed max-w-2xl",
-                invert ? "text-paper/70" : "text-muted"
+                "mt-4 font-body text-[17px] md:text-lg leading-relaxed max-w-2xl",
+                invert ? "text-paper/75" : "text-ink-soft"
               )}
             >
               {description}

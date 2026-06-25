@@ -8,6 +8,7 @@ import {
   type AtlasNode,
   atlasNodes,
   atlasPaths,
+  atlasStats,
   getAtlasNode,
   getBreadcrumb,
   getChildNodes,
@@ -46,6 +47,7 @@ function NodeButton({
   compact,
   filter,
   invert,
+  hoverId,
 }: {
   positioned: PositionedNode;
   onSelect: (id: string) => void;
@@ -54,12 +56,14 @@ function NodeButton({
   compact?: boolean;
   filter: AtlasFilter;
   invert?: boolean;
+  hoverId: string | null;
 }) {
   const { node, x, y, opacity, isFocus, isHighlighted } = positioned;
   const order = padOrder(node.id, node);
   const isDomain = node.type === "domain";
   const isUnresolved = node.type === "unresolved";
   const isSmall = !isDomain && !isFocus;
+  const isHovered = hoverId === node.id;
 
   const displayOpacity =
     filter !== "all" && !isHighlighted && !isFocus
@@ -81,7 +85,11 @@ function NodeButton({
       <button
         type="button"
         className={cn(
-          "text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-full cursor-pointer",
+          "text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-full cursor-pointer transition-shadow duration-300",
+          (isHovered || isHighlighted) &&
+            (invert
+              ? "shadow-[0_0_24px_rgba(200,163,160,0.45)]"
+              : "shadow-[0_0_20px_rgba(122,46,46,0.2)]"),
           isUnresolved && "border-dashed"
         )}
         onClick={(e) => {
@@ -441,19 +449,24 @@ export function AtlasOfRecurringQuestions({
       )}
 
       {compact && (
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <p className={cn("font-mono text-[10px] uppercase tracking-[0.14em]", invert ? "text-paper/50" : "text-muted")}>
-            Click a constellation to explore
-          </p>
-          <Link
-            href="/atlas"
+        <div className="mb-5 space-y-3">
+          <p
             className={cn(
-              "font-mono text-[10px] uppercase tracking-[0.14em] transition-colors",
-              invert ? "text-accent-soft hover:text-paper" : "text-accent hover:text-accent-ink"
+              "font-body text-[15px] md:text-base leading-relaxed max-w-2xl",
+              invert ? "text-paper/80" : "text-ink-soft"
             )}
           >
-            Open full atlas →
-          </Link>
+            Click a node to unfold related questions, projects, and notes.
+          </p>
+          <p
+            className={cn(
+              "font-mono text-[10.5px] uppercase tracking-[0.12em]",
+              invert ? "text-paper/55" : "text-muted"
+            )}
+          >
+            {atlasStats.constellations} constellations · {atlasStats.nodes} nodes ·{" "}
+            {atlasStats.writings} writings · {atlasStats.projects} projects
+          </p>
         </div>
       )}
 
@@ -503,35 +516,66 @@ export function AtlasOfRecurringQuestions({
           className="absolute inset-0 w-full h-full pointer-events-none"
           aria-hidden
         >
-          {lines.map((line) => (
+          {lines.map((line) => {
+            const isHoverLine =
+              Boolean(hoverId && line.key.includes(hoverId)) ||
+              Boolean(focusId && line.key.includes(focusId));
+            return (
             <motion.line
               key={line.key}
               x1={`${line.x1 * 100}%`}
               y1={`${line.y1 * 100}%`}
               x2={`${line.x2 * 100}%`}
               y2={`${line.y2 * 100}%`}
-              stroke={invert ? "rgba(247,242,232,0.25)" : "var(--line-dark)"}
-              strokeWidth={1}
+              stroke={
+                isHoverLine
+                  ? invert
+                    ? "rgba(200,163,160,0.7)"
+                    : "var(--accent-soft)"
+                  : invert
+                    ? "rgba(247,242,232,0.25)"
+                    : "var(--line-dark)"
+              }
+              strokeWidth={isHoverLine ? 1.5 : 1}
               initial={prefersReducedMotion ? false : { opacity: 0 }}
-              animate={{ opacity: 0.45 }}
+              animate={{ opacity: isHoverLine ? 0.85 : 0.45 }}
               transition={{ duration: 0.7, ease }}
             />
-          ))}
+            );
+          })}
         </svg>
 
         {/* Hover marginalia */}
         <AnimatePresence>
-          {hoverNode?.quote && !panelNode && (
+          {hoverNode && !panelNode && (
             <motion.div
               key={hoverNode.id}
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 4 }}
-              className="absolute bottom-4 left-4 right-4 md:left-6 md:right-auto md:max-w-xs z-20 pointer-events-none"
+              className={cn(
+                "absolute bottom-4 left-4 right-4 md:left-6 md:right-auto md:max-w-sm z-20 pointer-events-none p-4 border",
+                invert
+                  ? "border-paper/20 bg-ink/90 text-paper"
+                  : "border-line bg-paper/95 text-ink"
+              )}
             >
-              <p className="font-display text-sm italic text-muted border-l border-line-dark pl-3">
-                &ldquo;{hoverNode.quote}&rdquo;
+              <p className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted mb-1">
+                {hoverNode.type}
               </p>
+              <p className="font-display text-base font-medium leading-snug">
+                {hoverNode.label}
+              </p>
+              {(hoverNode.description || hoverNode.quote) && (
+                <p
+                  className={cn(
+                    "mt-2 font-body text-sm leading-relaxed",
+                    invert ? "text-paper/70" : "text-ink-soft"
+                  )}
+                >
+                  {hoverNode.description ?? hoverNode.quote}
+                </p>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
@@ -548,6 +592,7 @@ export function AtlasOfRecurringQuestions({
                 compact={compact}
                 filter={filter}
                 invert={invert}
+                hoverId={hoverId}
               />
           ))}
         </div>
@@ -573,16 +618,31 @@ export function AtlasOfRecurringQuestions({
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
-            className="mt-4 p-5 rounded-2xl border border-line bg-paper/80"
+            className={cn(
+              "mt-4 p-5 border",
+              invert
+                ? "border-paper/20 bg-paper/5"
+                : "border-line bg-paper/80"
+            )}
           >
-            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+            <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted">
               {panelNode.type}
             </p>
-            <h4 className="mt-2 font-display text-xl font-medium text-ink">
+            <h4
+              className={cn(
+                "mt-2 font-display text-xl font-medium",
+                invert ? "text-paper" : "text-ink"
+              )}
+            >
               {panelNode.label}
             </h4>
             {panelNode.description && (
-              <p className="mt-2 font-body text-sm text-muted leading-relaxed">
+              <p
+                className={cn(
+                  "mt-2 font-body text-sm leading-relaxed",
+                  invert ? "text-paper/70" : "text-ink-soft"
+                )}
+              >
                 {panelNode.description}
               </p>
             )}

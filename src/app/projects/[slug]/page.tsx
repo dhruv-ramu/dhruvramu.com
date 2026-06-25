@@ -44,7 +44,7 @@ export default async function ProjectPage({ params }: Props) {
     <PageTransition>
       <Container narrow className="py-12 md:py-20">
         <Link
-          href="/projects"
+          href="/#projects"
           className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted hover:text-ink transition-colors"
         >
           ← All projects

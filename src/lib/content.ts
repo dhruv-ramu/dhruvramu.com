@@ -33,11 +33,15 @@ export function getAllProjects(): Project[] {
   const slugs = getMdxFiles(path.join(contentDirectory, "projects"));
   return slugs
     .map((slug) => readContent<ProjectFrontmatter>("projects", slug))
-    .sort(
-      (a, b) =>
+    .sort((a, b) => {
+      const orderA = a.frontmatter.order ?? 999;
+      const orderB = b.frontmatter.order ?? 999;
+      if (orderA !== orderB) return orderA - orderB;
+      return (
         new Date(b.frontmatter.date).getTime() -
         new Date(a.frontmatter.date).getTime()
-    );
+      );
+    });
 }
 
 export function getProjectBySlug(slug: string): Project | null {

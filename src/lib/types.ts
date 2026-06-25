@@ -10,6 +10,7 @@ export interface BaseContent {
   category: string;
   tags: string[];
   featured?: boolean;
+  order?: number;
   summary: string;
   status: string;
 }

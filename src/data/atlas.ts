@@ -326,8 +326,8 @@ export const atlasNodes: AtlasNode[] = [
     parent: "variant-interpretation",
     links: [
       {
-        label: "Project: OncoKB-Free Pipeline",
-        href: "/projects/oncokb-free-annotation-pipeline",
+        label: "Project: TCGA Survival Analysis",
+        href: "/projects/tcga-survival-analysis",
         kind: "project",
       },
     ],
@@ -510,8 +510,8 @@ export const atlasNodes: AtlasNode[] = [
     parent: "interfaces",
     links: [
       {
-        label: "Project: IRO Analytics",
-        href: "/projects/iro-analytics",
+        label: "Project: International Research Olympiad",
+        href: "/projects/international-research-olympiad",
         kind: "project",
       },
     ],
@@ -688,8 +688,8 @@ export const atlasNodes: AtlasNode[] = [
       "Exam design, scoring models, oral defense, integrity analytics, and global access.",
     links: [
       {
-        label: "Project: IRO Analytics",
-        href: "/projects/iro-analytics",
+        label: "Project: International Research Olympiad",
+        href: "/projects/international-research-olympiad",
         kind: "project",
       },
     ],
@@ -1064,3 +1064,14 @@ export function getDescendantIds(id: string): string[] {
 }
 
 export const ROOT_IDS = getRootNodes().map((n) => n.id);
+
+function countLinked(kind: AtlasLinkKind) {
+  return atlasNodes.filter((n) => n.links?.some((l) => l.kind === kind)).length;
+}
+
+export const atlasStats = {
+  constellations: atlasNodes.filter((n) => n.type === "domain").length,
+  nodes: atlasNodes.length,
+  writings: countLinked("essay"),
+  projects: countLinked("project"),
+};

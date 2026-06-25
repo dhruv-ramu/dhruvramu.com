@@ -5,6 +5,7 @@ date: "2024-08-05"
 category: "Product / Engineering"
 tags: ["computer vision", "optics", "display technology", "image processing"]
 featured: true
+order: 4
 summary: "A computational display project exploring image pre-compensation for visual correction without requiring corrective lenses."
 status: "Prototype"
 tools: ["Python", "OpenCV", "NumPy", "Display hardware"]
@@ -16,7 +17,7 @@ role: "Lead Researcher"
 
 ## Context
 
-Refractive errors (myopia, hyperopia, astigmatism) affect billions of people worldwide. Traditional correction requires lenses or surgery. Recent work in computational displays suggests that pre-distorting images on screen can compensate for optical aberrations in the eye — potentially enabling lens-free correction.
+Refractive errors (myopia, hyperopia, astigmatism) affect billions of people worldwide. Recent work in computational displays suggests that pre-distorting images on screen can compensate for optical aberrations in the eye — potentially enabling lens-free correction.
 
 ## Question
 
@@ -24,20 +25,12 @@ Can a computational display system pre-compensate images such that a viewer with
 
 ## Method
 
-1. **Characterize the optical aberration** using a point spread function (PSF) model of the viewer's eye
-2. **Compute the inverse filter** (deconvolution kernel) from the PSF
-3. **Pre-distort displayed images** by convolving with the inverse kernel
-4. **Validate perceptually** using test patterns and subjective sharpness ratings
+Characterize the optical aberration using a point spread function model, compute the inverse deconvolution kernel, pre-distort displayed images, and validate perceptually using test patterns and subjective sharpness ratings.
 
 ## Result
 
-Prototype demonstrations show measurable improvement in perceived sharpness for low-to-moderate myopia (-1.0 to -3.0 diopters). Performance degrades at higher corrections and is sensitive to viewing distance and head position.
+Prototype demonstrations show measurable improvement in perceived sharpness for low-to-moderate myopia. Performance degrades at higher corrections and is sensitive to viewing distance and head position.
 
 ## Reflection
 
-The gap between laboratory demonstration and practical product is enormous. Head movement, binocular vision, display resolution limits, and individual variation in PSF all complicate real-world deployment. But the underlying principle — using computation to replace optics — is worth exploring.
-
-## Links
-
-- Related work: [Fu et al., "Computational Display for Correcting Vision Defects"](https://example.com)
-- Demo video (placeholder)
+The gap between laboratory demonstration and practical product is enormous — but the underlying principle of using computation to replace optics is worth exploring.

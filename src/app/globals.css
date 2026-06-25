@@ -2,13 +2,14 @@
 @import "katex/dist/katex.min.css";
 
 :root {
+  --sidebar-width: 168px;
   --background: #f7f2e8;
   --paper: #fbf8f1;
   --paper-deep: #efe7da;
   --ink: #15120e;
   --ink-soft: #3a332b;
-  --muted: #766e63;
-  --muted-light: #a59b8c;
+  --muted: #6f675c;
+  --muted-light: #7c7366;
   --line: #d8cdbb;
   --line-dark: #b9ab96;
   --accent: #7a2e2e;
@@ -24,7 +25,7 @@
   --ink: #f7f2e8;
   --ink-soft: #d4cdc2;
   --muted: #a59b8c;
-  --muted-light: #766e63;
+  --muted-light: #8f8578;
   --line: #3a332b;
   --line-dark: #4a4238;
   --accent: #c8a3a0;
@@ -70,7 +71,7 @@ body {
   background: var(--background);
   color: var(--ink);
   font-family: var(--font-body), Georgia, "Times New Roman", serif;
-  font-size: 18px;
+  font-size: max(17px, 1.0625rem);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -131,16 +132,32 @@ body {
 
 .section-label {
   font-family: var(--font-mono), "IBM Plex Mono", monospace;
-  font-size: 0.72rem;
+  font-size: max(10.5px, 0.65625rem);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
+.sidebar-spine {
+  width: var(--sidebar-width);
+}
+
+.main-content {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+@media (min-width: 1024px) {
+  .main-content {
+    margin-left: var(--sidebar-width);
+    width: calc(100vw - var(--sidebar-width));
+  }
+}
+
 .hero-heading {
   font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(5rem, 14vw, 12rem);
-  line-height: 0.88;
+  font-size: clamp(6.5rem, 11vw, 9.25rem);
+  line-height: 0.82;
   font-weight: 500;
   letter-spacing: -0.05em;
 }
@@ -203,7 +220,7 @@ body {
 /* Article prose */
 .prose-article {
   font-family: var(--font-body), Newsreader, Georgia, serif;
-  font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+  font-size: clamp(1.1875rem, 1.5vw, 1.3125rem);
   line-height: 1.75;
   color: var(--ink-soft);
 }

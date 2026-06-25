@@ -59,7 +59,7 @@ export default async function WritingPostPage({ params }: Props) {
         </aside>
 
         <Link
-          href="/writing"
+          href="/#writing"
           className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted hover:text-ink transition-colors"
         >
           ← All writing

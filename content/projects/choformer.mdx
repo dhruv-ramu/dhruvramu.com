@@ -5,6 +5,7 @@ date: "2025-01-20"
 category: "Computational Biology"
 tags: ["transformers", "codon optimization", "CHO cells", "protein expression"]
 featured: true
+order: 6
 summary: "A transformer-based codon optimization experiment for CHO expression systems, exploring sequence design, host-specific codon preference, and model-guided expression optimization."
 status: "In Progress"
 tools: ["Python", "PyTorch", "Transformers", "Biopython"]
@@ -16,7 +17,7 @@ role: "Lead Developer"
 
 ## Context
 
-Chinese Hamster Ovary (CHO) cells are the workhorse of biopharmaceutical production. Codon optimization — adapting gene sequences to match host codon usage preferences — can significantly improve protein expression yields. Traditional approaches use heuristic rules; recent work suggests sequence models may capture subtler patterns.
+Chinese Hamster Ovary (CHO) cells are the workhorse of biopharmaceutical production. Codon optimization — adapting gene sequences to match host codon usage preferences — can significantly improve protein expression yields.
 
 ## Question
 
@@ -24,22 +25,16 @@ Can a transformer architecture learn host-specific codon optimization patterns f
 
 ## Method
 
-We trained a transformer encoder on paired (original, optimized) gene sequences from published CHO expression datasets. The model learns to predict codon substitutions that maximize predicted expression while preserving amino acid sequence.
-
-Architecture details:
-- 6-layer transformer encoder
-- Codon-level tokenization (64 tokens)
-- Multi-task loss: expression prediction + sequence reconstruction
+Trained a transformer encoder on paired gene sequences from published CHO expression datasets, learning codon substitutions that maximize predicted expression while preserving amino acid sequence.
 
 ## Result
 
-Early results show the model captures known CHO codon preferences (e.g., preference for G/C-ending codons) and discovers non-obvious patterns in rare codon contexts. Benchmarking against established tools (e.g., GeneOptimizer) is ongoing.
+Early results show the model captures known CHO codon preferences and discovers non-obvious patterns in rare codon contexts. Benchmarking against established tools is ongoing.
 
 ## Reflection
 
-Codon optimization sits at an interesting intersection of biology and engineering. The "optimal" sequence depends on context — vector, promoter, cell line, protein fold — that no model fully captures. The value may be in augmenting expert judgment rather than replacing it.
+Codon optimization sits at an interesting intersection of biology and engineering — the value may be in augmenting expert judgment rather than replacing it.
 
 ## Links
 
 - [CHO codon usage database](https://www.kazusa.or.jp/codon/)
-- Model weights (placeholder)

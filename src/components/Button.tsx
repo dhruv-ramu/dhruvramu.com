@@ -1,5 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { type SiteSectionId } from "@/lib/nav";
 
 interface ButtonProps {
   href?: string;
@@ -22,6 +26,7 @@ export function Button({
   external,
   download,
 }: ButtonProps) {
+  const pathname = usePathname();
   const base =
     "inline-flex items-center justify-center font-mono text-[11px] uppercase tracking-[0.14em] px-7 py-3.5 border-2 transition-all duration-300 ease-out";
 
@@ -51,7 +56,21 @@ export function Button({
       );
     }
     return (
-      <Link href={href} className={classes}>
+      <Link
+        href={href}
+        className={classes}
+        onClick={(e) => {
+          if (pathname === "/" && href.startsWith("/#")) {
+            const id = href.slice(2) as SiteSectionId;
+            const el = document.getElementById(id);
+            if (el) {
+              e.preventDefault();
+              el.scrollIntoView({ behavior: "smooth", block: "start" });
+              window.history.pushState(null, "", href);
+            }
+          }
+        }}
+      >
         {children}
       </Link>
     );
