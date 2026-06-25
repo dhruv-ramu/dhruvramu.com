@@ -1,5 +1,5 @@
-import { RedirectToSection } from "@/components/RedirectToSection";
+import { redirect } from "next/navigation";
 
 export default function LibraryPage() {
-  return <RedirectToSection id="library" />;
+  redirect("/tastes");
 }

@@ -861,7 +861,7 @@ export const atlasNodes: AtlasNode[] = [
     links: [
       {
         label: "Book: The Beginning of Infinity",
-        href: "/library",
+        href: "/tastes",
         kind: "book",
       },
       {
@@ -891,7 +891,7 @@ export const atlasNodes: AtlasNode[] = [
       },
       {
         label: "Library entry",
-        href: "/library",
+        href: "/tastes",
         kind: "book",
       },
     ],
@@ -904,7 +904,7 @@ export const atlasNodes: AtlasNode[] = [
     links: [
       {
         label: "Book: Structure of Scientific Revolutions",
-        href: "/library",
+        href: "/tastes",
         kind: "book",
       },
     ],
@@ -943,7 +943,7 @@ export const atlasNodes: AtlasNode[] = [
     links: [
       {
         label: "Library",
-        href: "/library",
+        href: "/tastes",
         kind: "book",
       },
     ],

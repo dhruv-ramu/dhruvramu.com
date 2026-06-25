@@ -2,7 +2,6 @@
 @import "katex/dist/katex.min.css";
 
 :root {
-  --sidebar-width: 168px;
   --background: #f7f2e8;
   --paper: #fbf8f1;
   --paper-deep: #efe7da;
@@ -136,22 +135,6 @@ body {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
-}
-
-.sidebar-spine {
-  width: var(--sidebar-width);
-}
-
-.main-content {
-  width: 100%;
-  overflow-x: hidden;
-}
-
-@media (min-width: 1024px) {
-  .main-content {
-    margin-left: var(--sidebar-width);
-    width: calc(100vw - var(--sidebar-width));
-  }
 }
 
 .hero-heading {

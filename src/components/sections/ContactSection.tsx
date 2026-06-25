@@ -22,7 +22,7 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="scroll-mt-20 py-16 md:py-24 border-t border-line"
+      className="scroll-mt-24 py-16 md:py-24 border-t border-line"
     >
       <div className="px-6 md:px-10 lg:px-12 xl:px-14 max-w-2xl">
         <ScrollReveal>

@@ -1,0 +1,150 @@
+.record-player {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.record-player-surface {
+  background: linear-gradient(145deg, var(--paper-deep) 0%, var(--paper) 100%);
+  border: 2px solid var(--ink);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 4px 4px 0 var(--line-dark);
+}
+
+.record-player-platter {
+  position: relative;
+  width: min(100%, 220px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+
+.record-player-vinyl {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background:
+  radial-gradient(circle at center, var(--paper) 0%, var(--paper) 18%, transparent 19%),
+  repeating-radial-gradient(
+    circle at center,
+    var(--ink) 0px,
+    var(--ink) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  background-color: #1a1714;
+  box-shadow: inset 0 0 0 3px var(--line-dark);
+  transition: transform 0.4s ease;
+}
+
+.dark .record-player-vinyl {
+  background-color: #0a0908;
+}
+
+.record-player-vinyl--spinning {
+  animation: vinyl-spin 3.2s linear infinite;
+}
+
+@keyframes vinyl-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.record-player-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 34%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.35rem;
+  color: var(--paper);
+}
+
+.record-player-label-title {
+  font-family: var(--font-mono), monospace;
+  font-size: 6px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.record-player-label-artist {
+  font-family: var(--font-display), serif;
+  font-size: 8px;
+  font-style: italic;
+  margin-top: 2px;
+  opacity: 0.9;
+}
+
+.record-player-arm {
+  position: absolute;
+  top: 8%;
+  right: 12%;
+  width: 42%;
+  height: 4px;
+  background: var(--ink);
+  transform-origin: right center;
+  transform: rotate(-28deg);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 2px;
+}
+
+.record-player-arm::after {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--ink);
+}
+
+.record-player-arm--down {
+  transform: rotate(12deg);
+}
+
+.record-player-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.record-player-btn {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.record-player-btn:hover {
+  background: var(--paper-deep);
+  transform: translateY(-1px);
+}
+
+.record-player-btn--ghost {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .record-player-vinyl--spinning {
+    animation: none;
+  }
+}

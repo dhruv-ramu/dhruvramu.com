@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useMemo } from "react";
 import { WritingRow } from "@/components/WritingRow";
 import { Button } from "@/components/Button";
 import { ScrollReveal } from "@/components/ScrollReveal";
@@ -23,16 +22,13 @@ interface WritingSectionProps {
 }
 
 export function WritingSection({ posts }: WritingSectionProps) {
-  const [showMore, setShowMore] = useState(false);
-
   const primary = useMemo(() => buildPrimaryPosts(posts), [posts]);
   const hasMore = posts.length > primary.length;
-  const visible = showMore ? posts : primary;
 
   return (
     <section
       id="writing"
-      className="scroll-mt-20 py-16 md:py-24 border-t border-line bg-paper-deep"
+      className="scroll-mt-24 py-16 md:py-24 border-t border-line bg-paper-deep"
     >
       <div className="px-6 md:px-10 lg:px-12 xl:px-14">
         <ScrollReveal>
@@ -43,34 +39,20 @@ export function WritingSection({ posts }: WritingSectionProps) {
         </ScrollReveal>
 
         <div className="mt-8">
-          <AnimatePresence mode="popLayout">
-            {visible.map((post, i) => (
-              <motion.div
-                key={post.slug}
-                layout
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.3 }}
-              >
-                <WritingRow
-                  slug={post.slug}
-                  frontmatter={post.frontmatter}
-                  index={String(i + 1).padStart(2, "0")}
-                  featured={i === 0 && post.frontmatter.featured === true}
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
+          {primary.map((post, i) => (
+            <WritingRow
+              key={post.slug}
+              slug={post.slug}
+              frontmatter={post.frontmatter}
+              index={String(i + 1).padStart(2, "0")}
+              featured={i === 0 && post.frontmatter.featured === true}
+            />
+          ))}
 
           {hasMore && (
             <div className="mt-8">
-              <Button
-                type="button"
-                variant={showMore ? "ghost" : "secondary"}
-                onClick={() => setShowMore((v) => !v)}
-              >
-                {showMore ? "Show fewer" : "View more writing →"}
+              <Button href="/writing" variant="secondary">
+                View all writing →
               </Button>
             </div>
           )}

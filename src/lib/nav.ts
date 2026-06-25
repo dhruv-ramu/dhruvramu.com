@@ -1,14 +1,26 @@
-export const siteSections = [
-  { id: "home", label: "Home", index: "00" },
-  { id: "projects", label: "Projects", index: "01" },
-  { id: "writing", label: "Writing", index: "02" },
-  { id: "library", label: "Library", index: "03" },
-  { id: "about", label: "About", index: "04" },
-  { id: "contact", label: "Contact", index: "05" },
+export const siteNav = [
+  { href: "/", label: "Home", exact: true },
+  { href: "/projects", label: "Projects" },
+  { href: "/writing", label: "Writing" },
+  { href: "/tastes", label: "Tastes" },
+  { href: "/slices", label: "Slices" },
+  { href: "/#about", label: "About", hash: true },
+  { href: "/#contact", label: "Contact", hash: true },
 ] as const;
 
-export type SiteSectionId = (typeof siteSections)[number]["id"];
+export type SiteNavHref = (typeof siteNav)[number]["href"];
 
-export function sectionHref(id: SiteSectionId) {
+/** Homepage anchor sections (one-pager) */
+export const homeSections = [
+  { id: "home", label: "Home" },
+  { id: "projects", label: "Projects" },
+  { id: "writing", label: "Writing" },
+  { id: "about", label: "About" },
+  { id: "contact", label: "Contact" },
+] as const;
+
+export type HomeSectionId = (typeof homeSections)[number]["id"];
+
+export function homeSectionHref(id: HomeSectionId) {
   return id === "home" ? "/#home" : `/#${id}`;
 }

@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ProjectIndexRow } from "@/components/ProjectIndexRow";
 import { Button } from "@/components/Button";
 import { ScrollReveal } from "@/components/ScrollReveal";
@@ -14,16 +12,13 @@ interface ProjectsSectionProps {
 }
 
 export function ProjectsSection({ projects }: ProjectsSectionProps) {
-  const [showMore, setShowMore] = useState(false);
-
-  const primary = projects.slice(0, PRIMARY_COUNT);
-  const secondary = projects.slice(PRIMARY_COUNT);
-  const visible = showMore ? projects : primary;
+  const visible = projects.slice(0, PRIMARY_COUNT);
+  const hasMore = projects.length > PRIMARY_COUNT;
 
   return (
     <section
       id="projects"
-      className="scroll-mt-20 py-16 md:py-24 border-t border-line"
+      className="scroll-mt-24 py-16 md:py-24 border-t border-line"
     >
       <div className="px-6 md:px-10 lg:px-12 xl:px-14">
         <ScrollReveal>
@@ -34,33 +29,19 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
         </ScrollReveal>
 
         <div className="mt-8">
-          <AnimatePresence mode="popLayout">
-            {visible.map((project, i) => (
-              <motion.div
-                key={project.slug}
-                layout
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.3 }}
-              >
-                <ProjectIndexRow
-                  number={String(i + 1).padStart(2, "0")}
-                  slug={project.slug}
-                  frontmatter={project.frontmatter}
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
+          {visible.map((project, i) => (
+            <ProjectIndexRow
+              key={project.slug}
+              number={String(i + 1).padStart(2, "0")}
+              slug={project.slug}
+              frontmatter={project.frontmatter}
+            />
+          ))}
 
-          {secondary.length > 0 && (
+          {hasMore && (
             <div className="mt-8">
-              <Button
-                type="button"
-                variant={showMore ? "ghost" : "secondary"}
-                onClick={() => setShowMore((v) => !v)}
-              >
-                {showMore ? "Show fewer projects" : "View more projects →"}
+              <Button href="/projects" variant="secondary">
+                View all projects →
               </Button>
             </div>
           )}

@@ -7,7 +7,7 @@ export function AboutSection() {
   return (
     <section
       id="about"
-      className="scroll-mt-20 py-16 md:py-24 border-t border-line bg-paper-deep"
+      className="scroll-mt-24 py-16 md:py-24 border-t border-line bg-paper-deep"
     >
       <div className="px-6 md:px-10 lg:px-12 xl:px-14">
         <ScrollReveal>

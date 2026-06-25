@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { type SiteSectionId } from "@/lib/nav";
+import { type HomeSectionId } from "@/lib/nav";
 
 interface ButtonProps {
   href?: string;
@@ -61,7 +61,7 @@ export function Button({
         className={classes}
         onClick={(e) => {
           if (pathname === "/" && href.startsWith("/#")) {
-            const id = href.slice(2) as SiteSectionId;
+            const id = href.slice(2) as HomeSectionId;
             const el = document.getElementById(id);
             if (el) {
               e.preventDefault();

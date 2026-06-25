@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { AnimatedText } from "./AnimatedText";
 import { Button } from "./Button";
 import { ScrollReveal } from "./ScrollReveal";
-import { sectionHref } from "@/lib/nav";
+import { homeSectionHref } from "@/lib/nav";
 
 export function HomeHero() {
   const prefersReducedMotion = useReducedMotion();
@@ -12,7 +12,7 @@ export function HomeHero() {
   return (
     <section
       id="home"
-      className="scroll-mt-20 relative min-h-[min(80vh,720px)] flex items-center border-b border-line"
+      className="scroll-mt-24 relative min-h-[min(80vh,720px)] flex items-center border-b border-line"
     >
       <div className="relative w-full px-6 md:px-10 lg:px-12 xl:px-14 py-16 md:py-20">
         <div className="max-w-3xl">
@@ -44,10 +44,10 @@ export function HomeHero() {
 
           <ScrollReveal delay={0.32}>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button href={sectionHref("writing")} variant="primary">
+              <Button href={homeSectionHref("writing")} variant="primary">
                 Read the writing
               </Button>
-              <Button href={sectionHref("projects")}>View projects</Button>
+              <Button href={homeSectionHref("projects")}>View projects</Button>
             </div>
           </ScrollReveal>
         </div>

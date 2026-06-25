@@ -1,42 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { sectionHref, type SiteSectionId } from "@/lib/nav";
+import { homeSectionHref, type HomeSectionId } from "@/lib/nav";
 
-function scrollToSection(id: SiteSectionId) {
+function scrollToSection(id: HomeSectionId) {
   const el = document.getElementById(id);
   if (el) {
     el.scrollIntoView({ behavior: "smooth", block: "start" });
-    window.history.pushState(null, "", sectionHref(id));
+    window.history.pushState(null, "", homeSectionHref(id));
   }
 }
 
 interface SectionLinkProps {
-  id: SiteSectionId;
-  className?: string;
+  id: HomeSectionId;
   children: React.ReactNode;
-  onNavigate?: () => void;
+  className?: string;
 }
 
-export function SectionLink({
-  id,
-  className,
-  children,
-  onNavigate,
-}: SectionLinkProps) {
-  const pathname = usePathname();
-
+export function SectionLink({ id, children, className }: SectionLinkProps) {
   return (
     <Link
-      href={sectionHref(id)}
-      className={cn(className)}
+      href={homeSectionHref(id)}
+      className={className}
       onClick={(e) => {
-        if (pathname === "/") {
+        if (window.location.pathname === "/") {
           e.preventDefault();
           scrollToSection(id);
-          onNavigate?.();
         }
       }}
     >
