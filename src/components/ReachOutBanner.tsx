@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const EMAIL = "hello@dhruvramu.com";
+const EMAIL = "dramu@ucsd.edu";
 
 export function ReachOutBanner() {
   return (
@@ -16,7 +16,7 @@ export function ReachOutBanner() {
           href={`mailto:${EMAIL}`}
           className="font-body text-[17px] md:text-lg text-ink-soft hover:text-accent transition-colors"
         >
-          <span className="text-muted">hello@</span>dhruvramu.com
+          <span className="text-muted">dramu@</span>ucsd.edu
         </Link>
       </div>
     </div>

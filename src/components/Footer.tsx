@@ -1,7 +1,7 @@
 import { sectionHref } from "@/lib/nav";
 import { Container } from "./Container";
 
-const EMAIL = "hello@dhruvramu.com";
+const EMAIL = "dramu@ucsd.edu";
 
 const links = [
   { href: sectionHref("writing"), label: "Writing" },

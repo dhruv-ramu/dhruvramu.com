@@ -3,8 +3,8 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 const links = [
   {
     label: "Email",
-    value: "hello@dhruvramu.com",
-    href: "mailto:hello@dhruvramu.com",
+    value: "dramu@ucsd.edu",
+    href: "mailto:dramu@ucsd.edu",
   },
   {
     label: "LinkedIn",
